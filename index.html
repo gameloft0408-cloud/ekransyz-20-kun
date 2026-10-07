@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="ky">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Экрансыз 20 күн</title>
+<meta name="description" content="Ата-энелер үчүн 20 күндүк практикалык китеп жана чек-лист: баланы телефондон урушпай, акырындык менен ажыратуу.">
+<meta property="og:title" content="Экрансыз 20 күн">
+<meta property="og:description" content="Баланы телефондон урушпай ажыратуунун 20 күндүк планы: чек-лист, оюндар, сүйлөшүү скрипттери жана SOS баскычы.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F1F6F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1A1E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230F6E78'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one 42rem reading column. Sticky top bar with progress ring and phase tabs,
+   day cards with a large checkbox, SOS bottom sheet reachable from a floating button. */
+:root{
+  --bg:#F1F6F4; --surface:#FFFFFF; --surface-2:#E7F0EE; --done-bg:#EAF6EE;
+  --ink:#14262B; --muted:#4A666C; --line:#D3E0DD;
+  --accent:#0F6E78; --accent-on:#FFFFFF; --accent-soft:#D9EEEF;
+  --sos:#C23B2B; --sos-on:#FFFFFF; --sos-soft:#FBE4E0;
+  --p1:#2A6F8E; --p1-soft:#DCEBF3; --p1-on:#FFFFFF;
+  --p2:#8F5F10; --p2-soft:#F6E8CC; --p2-on:#FFFFFF;
+  --p3:#2F7A3E; --p3-soft:#DDEFDF; --p3-on:#FFFFFF;
+  --p4:#6B4D9B; --p4-soft:#E8E0F4; --p4-on:#FFFFFF;
+  --font-display:'Literata',Georgia,'Times New Roman',serif;
+  --font-body:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1A1E; --surface:#16262B; --surface-2:#1D3137; --done-bg:#16301F;
+    --ink:#E5EFED; --muted:#9DB6B4; --line:#2B4147;
+    --accent:#5CC4CE; --accent-on:#07262A; --accent-soft:#143A3F;
+    --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
+    --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
+    --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
+    --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
+    --p4:#B9A0E4; --p4-soft:#2A2142; --p4-on:#0C1A1E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1A1E; --surface:#16262B; --surface-2:#1D3137; --done-bg:#16301F;
+  --ink:#E5EFED; --muted:#9DB6B4; --line:#2B4147;
+  --accent:#5CC4CE; --accent-on:#07262A; --accent-soft:#143A3F;
+  --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
+  --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
+  --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
+  --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
+  --p4:#B9A0E4; --p4-soft:#2A2142; --p4-on:#0C1A1E;
+  color-scheme:dark;
+}
+[data-phase="1"]{--ph:var(--p1);--ph-soft:var(--p1-soft);--ph-on:var(--p1-on)}
+[data-phase="2"]{--ph:var(--p2);--ph-soft:var(--p2-soft);--ph-on:var(--p2-on)}
+[data-phase="3"]{--ph:var(--p3);--ph-soft:var(--p3-soft);--ph-on:var(--p3-on)}
+[data-phase="4"]{--ph:var(--p4);--ph-soft:var(--p4-soft);--ph-on:var(--p4-on)}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--font-body);
+  padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));overflow-wrap:break-word}
+img,svg{max-width:100%}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{width:100%;max-width:42rem;margin-inline:auto;padding-inline:16px}
+section[id],article[id]{scroll-margin-top:122px}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;text-wrap:balance;margin:0}
+h2{font-size:1.6rem;font-weight:800}
+h3{font-size:1.2rem;font-weight:800}
+h4{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body)}
+p{margin:0}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ph,var(--accent))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top-row{display:flex;align-items:center;gap:12px;padding-block:8px}
+.brand{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--ink);text-decoration:none;margin-right:auto}
+.ring{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.9rem;font-variant-numeric:tabular-nums}
+.ring svg{width:34px;height:34px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.ring .trk{stroke:var(--line)}
+.ring .bar{stroke:var(--accent);stroke-linecap:round;transition:stroke-dasharray .4s}
+.menu{position:relative}
+.menu>summary{list-style:none;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.menu>summary::-webkit-details-marker{display:none}
+.menu svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.menu-pop{position:absolute;right:0;top:calc(100% + 6px);width:230px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;display:grid;gap:2px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.menu-pop button{background:none;border:0;text-align:left;padding:12px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.95rem;min-height:44px}
+.menu-pop button:hover{background:var(--surface-2)}
+.phases{position:relative;display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;scroll-snap-type:x proximity}
+.phases::-webkit-scrollbar{display:none}
+.phases a{flex:none;scroll-snap-align:start;text-decoration:none;color:var(--muted);font-weight:800;font-size:.88rem;padding:8px 13px;border-radius:99px;border:1px solid var(--line);background:var(--surface);white-space:nowrap}
+.phases a[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-on)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 20px;border-radius:12px;border:2px solid var(--accent);background:var(--surface);color:var(--accent);font-weight:800;font-size:1rem;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-on)}
+.btn.sos{background:var(--sos);border-color:var(--sos);color:var(--sos-on)}
+.btn.quiet{border-color:var(--line);color:var(--ink);font-weight:700;min-height:44px}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* hero */
+.hero{padding-block:28px 8px;display:grid;gap:18px}
+.hero h1{font-size:clamp(1.85rem,7vw,2.8rem);font-weight:800}
+.hero h1 .big{color:var(--accent);font-size:1.45em;line-height:1;margin-right:.08em}
+.lead{font-size:1.15rem;color:var(--muted);max-width:36rem}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;font-size:.98rem;color:var(--muted)}
+.note b{color:var(--ink)}
+.how{display:grid;gap:8px;padding:0;margin:0;list-style:none;font-weight:600}
+.how li{display:flex;gap:10px;align-items:flex-start}
+.how li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--accent);margin-top:.6em}
+
+/* progress card */
+.progress{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:14px}
+.progress-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 12px}
+.progress-head strong{font-family:var(--font-display);font-size:1.15rem}
+.prow{display:grid;grid-template-columns:7.2rem 1fr auto;gap:10px;align-items:center}
+.prow-name{font-weight:800;font-size:.88rem;color:var(--ph)}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--ph);display:grid;place-items:center;font-weight:800;font-size:.82rem;color:var(--ph);text-decoration:none;font-variant-numeric:tabular-nums}
+.dot.done{background:var(--ph);color:var(--ph-on)}
+.prow-n{font-weight:800;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.banner{background:var(--done-bg);border-radius:12px;padding:14px 16px;font-weight:700}
+
+/* generic sections */
+.block{padding-block:34px 4px;display:grid;gap:16px}
+.block>p.sub{color:var(--muted);max-width:38rem}
+.cards{display:grid;gap:12px}
+@media(min-width:640px){.cards.two{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.card h3{font-size:1.1rem}
+.card p{color:var(--muted);font-size:1rem}
+.card p b{color:var(--ink)}
+.method{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:12px;min-width:0}
+.method ul{margin:0;padding-left:1.15rem;display:grid;gap:8px}
+.method li::marker{color:var(--accent)}
+.method .say{margin-top:2px}
+.aside{background:var(--surface-2);border-radius:12px;padding:12px 14px;font-size:.93rem;color:var(--muted)}
+.aside b{color:var(--ink)}
+.age{display:grid;gap:8px}
+.age-row{display:grid;grid-template-columns:5.2rem 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;align-items:start}
+.age-row b{font-family:var(--font-display);font-size:1.05rem}
+.age-row span{display:block}
+.age-row .rule{color:var(--muted);font-size:.95rem}
+
+/* say / dont bubbles */
+.say,.dont{border-radius:12px;padding:12px 14px;display:grid;gap:4px;margin:0}
+.say{background:var(--accent-soft)}
+.dont{background:var(--sos-soft)}
+.say .lab,.dont .lab{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.say .lab{color:var(--accent)}
+.dont .lab{color:var(--sos)}
+.say q,.dont q{quotes:none;font-weight:700}
+
+/* phases and days */
+.phase{padding-block:40px 0;display:grid;gap:16px}
+.phase-head{background:var(--ph-soft);border-radius:18px;padding:22px 20px;display:grid;gap:10px}
+.phase-head h2{color:var(--ink)}
+.phase-head .goal{font-size:1.05rem}
+.phase-head .expect{font-size:.97rem;color:var(--muted)}
+.phase-head .expect b{color:var(--ink)}
+.phase-count{font-weight:800;font-size:.9rem;color:var(--ph);font-variant-numeric:tabular-nums}
+.ladder{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.ladder .cap{font-size:.92rem;color:var(--muted)}
+.lad{display:grid;grid-template-columns:4.2rem 1fr;gap:10px;align-items:center;font-size:.88rem;font-weight:800}
+.lad .track{background:var(--surface-2);border-radius:8px;height:30px;overflow:hidden}
+.lad .fill{height:100%;background:var(--ph);color:var(--ph-on);display:flex;align-items:center;padding-inline:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-block;padding:6px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line);font-weight:700;font-size:.88rem;text-decoration:none;color:var(--ink)}
+.days{display:grid;gap:14px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:14px;min-width:0}
+.day.done{background:var(--done-bg)}
+.day-head{display:flex;gap:14px;align-items:center}
+.day-num{flex:none;width:56px;height:56px;border-radius:14px;background:var(--ph);color:var(--ph-on);display:grid;place-items:center;align-content:center;font-family:var(--font-display);font-weight:800;font-size:1.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.day-num small{font-family:var(--font-body);font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.task{position:relative;display:flex;gap:14px;align-items:flex-start;background:var(--ph-soft);border-radius:12px;padding:14px;cursor:pointer}
+.task input{position:absolute;opacity:0;width:30px;height:30px;margin:0;left:14px;top:14px;cursor:pointer}
+.task .box{flex:none;width:30px;height:30px;border-radius:9px;border:2.5px solid var(--ph);background:var(--surface);display:grid;place-items:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.task .box::after{content:"";width:8px;height:15px;border:solid var(--ph-on);border-width:0 3.5px 3.5px 0;transform:rotate(45deg) translate(-1px,-1px);opacity:0}
+.task input:checked + .box{background:var(--ph)}
+.task input:checked + .box::after{opacity:1}
+.task input:focus-visible + .box{outline:3px solid var(--accent);outline-offset:2px}
+.task-text{display:grid;gap:2px}
+.task-text b{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ph)}
+.game{background:var(--surface-2);border-radius:12px;padding:14px;display:grid;gap:8px}
+.game h4{font-family:var(--font-display);text-transform:none;letter-spacing:0;font-size:1.05rem;color:var(--ink)}
+.game .meta{display:flex;flex-wrap:wrap;gap:6px}
+.game .meta span{font-size:.78rem;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.game p{font-size:.97rem}
+.game .why{color:var(--muted)}
+.game .safe{font-size:.9rem;color:var(--sos);font-weight:700}
+.more>summary{cursor:pointer;font-weight:800;color:var(--accent);padding:10px 0;min-height:44px;display:flex;align-items:center;gap:8px;list-style:none}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"+";display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid var(--accent);font-size:1rem;line-height:1}
+.more[open]>summary::before{content:"\2212"}
+.more-body{display:grid;gap:14px;padding-top:4px}
+.more-body ol,.more-body ul{margin:0;padding-left:1.25rem;display:grid;gap:8px}
+.more-body li::marker{font-weight:800;color:var(--ph)}
+.more-body .sec{display:grid;gap:6px}
+.check{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:16px;display:grid;gap:8px}
+.check ul{margin:0;padding-left:1.15rem;display:grid;gap:6px;color:var(--muted);font-size:.97rem}
+.sched{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.sched table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.9rem;background:var(--surface)}
+.sched th,.sched td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.sched th{background:var(--surface-2);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.sched tr:last-child td{border-bottom:0}
+
+/* scripts */
+.scripts{display:grid;gap:10px}
+.script{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 16px}
+.script>summary{cursor:pointer;font-family:var(--font-display);font-weight:800;font-size:1.05rem;padding:14px 0;min-height:52px;display:flex;align-items:center;list-style:none;gap:10px}
+.script>summary::-webkit-details-marker{display:none}
+.script>summary::after{content:"+";margin-left:auto;font-family:var(--font-body);font-size:1.4rem;color:var(--accent)}
+.script[open]>summary::after{content:"\2212"}
+.script-body{display:grid;gap:10px;padding-bottom:16px}
+.script-body .why{font-size:.93rem;color:var(--muted)}
+.t3{display:grid;gap:10px}
+@media(min-width:640px){.t3{grid-template-columns:repeat(3,1fr)}}
+.t3 .card h3{color:var(--accent)}
+.t3 .card h3 span{display:block;font-family:var(--font-body);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+
+/* sources + end */
+.sources{margin:0;padding-left:1.15rem;display:grid;gap:6px;font-size:.92rem;color:var(--muted)}
+.footer{padding-block:36px 8px;display:grid;gap:14px;color:var(--muted);font-size:.93rem}
+.reset-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* SOS */
+.sos-fab{position:fixed;z-index:40;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:8px;min-height:52px;padding:0 20px;border-radius:99px;border:0;background:var(--sos);color:var(--sos-on);font-weight:800;font-size:1.05rem;letter-spacing:.03em;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.sos-fab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+dialog.sheet{border:0;padding:0;margin:auto auto 0;width:100%;max-width:40rem;max-height:94dvh;background:var(--surface);color:var(--ink);border-radius:22px 22px 0 0;overflow:auto}
+@media(min-width:700px){dialog.sheet{margin:auto;border-radius:22px}}
+dialog.sheet::backdrop{background:rgba(6,18,22,.62)}
+.sheet-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:16px}
+.sheet-top{display:flex;align-items:center;gap:12px}
+.sheet-top strong{font-family:var(--font-display);font-size:1.15rem;margin-right:auto}
+.x{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center}
+.x svg{width:20px;height:20px;stroke:var(--ink);stroke-width:2;fill:none;stroke-linecap:round}
+.steps{display:flex;gap:8px;list-style:none;margin:0;padding:0}
+.steps li{flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--surface-2);font-weight:800;font-size:.85rem;color:var(--muted)}
+.steps li[aria-current="step"]{background:var(--sos);color:var(--sos-on)}
+.step{display:grid;gap:14px;min-height:15rem;align-content:start}
+.step h3{font-size:1.5rem}
+.step .big{font-size:1.1rem}
+.breath{justify-self:center;width:150px;height:150px;display:grid;place-items:center;position:relative}
+.breath::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent-soft);border:3px solid var(--accent);transform:scale(.7)}
+.breath.run::before{animation:breathe 10s ease-in-out infinite}
+@keyframes breathe{0%{transform:scale(.7)}40%{transform:scale(1.12)}100%{transform:scale(.7)}}
+.breath span{position:relative;font-weight:800;text-align:center;font-size:.95rem;padding:0 22px;line-height:1.3}
+.sheet-nav{display:flex;gap:10px}
+.sheet-nav .btn{flex:1}
+.safety{font-size:.9rem;color:var(--muted);background:var(--surface-2);border-radius:12px;padding:12px 14px}
+.safety b{color:var(--ink)}
+
+/* print */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f3f3f3;--ink:#000;--muted:#333;--line:#999}
+  body{background:#fff;color:#000;font-size:11pt;padding:0}
+  .top,.sos-fab,.btn-row,.progress .btn-row,.menu,.noprint,dialog,.chips,.reset-row{display:none!important}
+  .wrap{max-width:none;padding-inline:0}
+  .day,.phase-head,.method,.card,.game,.script,.check,.ladder,.age-row{break-inside:avoid}
+  .phase{break-before:page;padding-top:0}
+  .phase:first-of-type{break-before:auto}
+  .day{border:1px solid #999;border-radius:6px;padding:10px;gap:8px}
+  .task{background:none;padding:6px 0}
+  .task .box{border-color:#000}
+  .phase-head{border:1px solid #999;background:none}
+  .more>summary{display:none}
+  .more[open] .more-body,.more .more-body{display:grid}
+  .progress{display:none}
+  body.print-checklist .block,body.print-checklist .scripts-sec,body.print-checklist .footer,body.print-checklist .more,body.print-checklist .game,body.print-checklist .ladder,body.print-checklist .check,body.print-checklist .hero .lead,body.print-checklist .hero .note,body.print-checklist .hero .how,body.print-checklist .phase-head .expect{display:none!important}
+  body.print-checklist .phase{break-before:auto;padding-top:14px}
+  body.print-checklist .day{padding:6px 10px;break-inside:avoid}
+  body.print-checklist .day-num{width:40px;height:40px;font-size:1.1rem}
+  body.print-checklist .hero{padding-block:0}
+}
+</style>
+</head>
+<body id="top">
+<noscript><div class="wrap"><p class="note">Бул китеп JavaScript менен иштейт. Браузериңизде JavaScript'ти иштетиңиз.</p></div></noscript>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="#top">Экрансыз 20 күн</a>
+      <div class="ring" aria-live="polite">
+        <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="trk" cx="18" cy="18" r="15.9155"/><circle class="bar" id="ring-bar" cx="18" cy="18" r="15.9155" stroke-dasharray="0 100"/></svg>
+        <span id="ring-text">0/20</span>
+      </div>
+      <details class="menu" id="print-menu">
+        <summary aria-label="Басып чыгаруу"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></svg></summary>
+        <div class="menu-pop">
+          <button type="button" data-print="checklist">Чек-листти басуу (20 күн)</button>
+          <button type="button" data-print="book">Бүт китепти басуу</button>
+        </div>
+      </details>
+    </div>
+    <nav class="phases" id="nav" aria-label="Бөлүмдөр">
+      <a href="#intro" data-target="intro">Кириш</a>
+      <a href="#phase-1" data-target="phase-1">1 · Даярдык</a>
+      <a href="#phase-2" data-target="phase-2">2 · Азайтуу</a>
+      <a href="#phase-3" data-target="phase-3">3 · Оюндар</a>
+      <a href="#phase-4" data-target="phase-4">4 · Бекемдөө</a>
+      <a href="#scripts" data-target="scripts">Скрипттер</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="intro" aria-labelledby="h1">
+    <p class="eyebrow">Ата-энелер үчүн практикалык китеп</p>
+    <h1 id="h1"><span class="big">20</span> күндө баланы экрандан акырындык менен ажыратуу</h1>
+    <p class="lead">Урушпай, телефонду жулуп албай. Күн сайын бир кичинекей кадам, ар бир кадамга даяр сөздөр жана телефондун ордун баса турган оюндар.</p>
+    <ul class="how">
+      <li>Күн сайын бир тапшырма, 10–20 мүнөт.</li>
+      <li>Аткаргандан кийин чекбоксту белгилеңиз, прогресс телефонуңузда сакталат.</li>
+      <li>Бала ыйлап, кыйкырып жатабы? Оң төмөнкү бурчтагы SOS баскычын басыңыз.</li>
+    </ul>
+    <div class="btn-row">
+      <a class="btn primary" id="cta-start" href="#day-1">1-күндөн баштоо</a>
+      <button class="btn sos" type="button" data-open-sos>SOS: бала гистерика кылып жатат</button>
+    </div>
+    <p class="note"><b>Чынчыл эскертүү.</b> 20 күн — жаңы ыргакты баштоо үчүн жетиштүү, бирок адат толук орношушу үчүн көбүнчө 2–3 ай керек (изилдөөдө орточо 66 күн). Бала уктай албай калса, экранды алганда катуу агрессия болсо, мектептен же достордон качса, көңүл-күйү начарласа, балдар психологуна же педиатрга кайрылыңыз. Бул китеп билим берүү үчүн, медициналык кеңеш эмес.</p>
+  </section>
+
+  <section class="progress" aria-labelledby="ph-title">
+    <div class="progress-head">
+      <strong id="ph-title">Менин прогрессим</strong>
+      <span class="prow-n" id="progress-sum">0 / 20 күн</span>
+    </div>
+    <div id="progress-rows" style="display:grid;gap:12px"></div>
+    <div class="banner" id="done-banner" hidden>Куттуктайбыз, 20 күн аткарылды. Эми жумасына бир жолу 10 мүнөт отуруп, 16-күндөгү апталык графикти бирге карап туруңуз.</div>
+    <div class="btn-row">
+      <a class="btn primary" id="cta-continue" href="#day-1">Улантуу</a>
+      <button class="btn quiet" type="button" id="toggle-all">Бардык күндөрдү ачуу</button>
+    </div>
+  </section>
+
+  <section class="block" id="why" aria-labelledby="why-t">
+    <h2 id="why-t">Мээ телефон менен кантип иштейт</h2>
+    <p class="sub">Төрт жөнөкөй сүрөт. Баланын «жаман» экенин эмес, мээнин кандай иштегенин түшүнсөңүз, ачууланууңуз азаят.</p>
+    <div class="cards two">
+      <article class="card"><h3>Таттуу жана ботко</h3><p>Шоколад жегенден кийин ботко даамсыз сезилет. Экран да ушундай: тез жана жаркыраган кубанычтан кийин китеп, конструктор, көчөдөгү оюн «кызыксыз» көрүнөт. Баланын мээси бузулган эмес, ал жөн эле өтө таттуу нерсеге көнүп калган.</p></article>
+      <article class="card"><h3>Оюн автоматы</h3><p>Видеону сыйпап өткөндө кийинкисинде эмне бар экенин билбейсиз. Ушул «балким кийинкиси кызыгыраак» деген күтүү мээни кармап турат. Ошон үчүн «бир мүнөт» бир саатка айланат. Бул баланын күнөөсү эмес, колдонмолордун атайын ойлонулган түзүлүшү.</p></article>
+      <article class="card"><h3>Тормоз али жетиле элек</h3><p>Мээнин «тормоз» бөлүгү (маңдай жагы) 20–25 жашка чейин жетилет. Сегиз жашар баладан «өзүң токто» деп талап кылуу, велосипедди тормозсуз түшүрүп жатып «токтоп ал» дегенге окшош. Тормозду баланын ордуна чөйрө жана эрежелер кармайт.</p></article>
+      <article class="card"><h3>Мээ кайра үйрөнөт</h3><p>Өсүп жаткан мээ өтө ийкемдүү. Таттууну азайтсаңыз, бир нече жумадан кийин жөнөкөй тамактын даамы кайра билинет. Экран менен да ошондой: акырындап азайтып, бош орунду башка кубаныч менен толтурсаңыз, кызыксыз сезилген нерселер кайра кызыктуу боло баштайт.</p></article>
+    </div>
+  </section>
+
+  <section class="block" id="method" aria-labelledby="method-t">
+    <h2 id="method-t">Илимий негиздер, карапайым тилде</h2>
+    <p class="sub">Программа үч идеяга таянат. Бардыгы кийинки күндөрдөгү тапшырмаларга айланган.</p>
+
+    <article class="method">
+      <h3>Дофаминди калыбына келтирүү</h3>
+      <p>Дофамин — «кубаныч гормону» эмес, көбүрөөк «дагы кааладым!» деп түртүп турган мээ сигналы. Экран ар секунд сайын жаңы нерсе берип, бул сигналды тынымсыз ачып турат. Натыйжада сабак, ойноо, тамак сыяктуу кадимки нерселер «жай» көрүнөт.</p>
+      <ul>
+        <li><b>Акырындык менен азайтабыз.</b> Бир күндө толугу менен кесүү баланын мээсине стресс болот да, каршылыкты күчөтөт.</li>
+        <li><b>Ордун толтурабыз.</b> Бош калган убакытты кыймыл, колдор менен иш жана жылуу баарлашуу менен алмаштырабыз.</li>
+        <li><b>Мээге эс беребиз.</b> Уйку, күн жарыгы жана кыймыл — табигый калыбына келтирүүчүлөр.</li>
+      </ul>
+      <p class="aside"><b>Тактоо.</b> «Дофамин детокс» деген сөз популярдуу, бирок илимий жактан так эмес: дофаминди «өчүрүү» мүмкүн да, керек да эмес. Биз бул сөздү «тез сыйлыкка көнгөн мээни акырындык менен кайра жөнгө салуу» деген маанидө гана колдонобуз.</p>
+    </article>
+
+    <article class="method">
+      <h3>Бихевиоризм: жулуп албай, ордун алмаштырабыз</h3>
+      <p>Бала (жана чоң киши да) жагымдуу натыйжа алган аракетин кайталайт. Телефонду жулуп алсаңыз, бала бош калып, «эмне кылам?» деп экранды дагы катуу каалайт. Ошондуктан ордуна андан жакшыраак же ага жакын нерсе беребиз.</p>
+      <ul>
+        <li><b>Ордун алмаштыр.</b> Телефон кеткен жерге кыймылдуу жана тез жыйынтык берген оюн коюлат (3-фаза).</li>
+        <li><b>Чөйрөнү өзгөрт.</b> Көз алдында жок болсо, каалоо азаят. Заряд башка бөлмөдө.</li>
+        <li><b>«Алгач… анан…»</b> Алгач тиш тазалайбыз, анан мультфильм. Бул пара эмес, күндүн ыргагы.</li>
+        <li><b>Жакшы жүрүм-турумду дароо байка.</b> Таймер шыңгырады, бала өзү өчүрдү: он секунд ичинде так мактаңыз.</li>
+        <li><b>Каршылыктын күчөшүнө даяр бол.</b> Эрежени баштаган алгачкы күндөрү нааразычылык убактылуу күчөйт: мээ «мурункусу кайтабы?» деп текшерет. Туруктуу болсоңуз, азаят.</li>
+      </ul>
+    </article>
+
+    <article class="method">
+      <h3>Конфликтсиз чек ара: үч «Т» эрежеси</h3>
+      <p>Бала катуу ыйлаганда логика иштебейт: анын мээсинин «эмоция» бөлүгү «ой жүгүртүү» бөлүгүнөн күчтүү болуп турат. Ушул учурда ишенимдүү үч кадам:</p>
+      <div class="t3">
+        <div class="card"><h3><span>Биринчи</span>Тынчтан</h3><p>Алгач сиз: дем алыңыз, үнүңүздү түшүрүңүз. Бала сиздин тынчтыгыңызды «көчүрүп» алат.</p></div>
+        <div class="card"><h3><span>Экинчи</span>Түшүн</h3><p>Сезимин атаңыз: «Сен капа болуп жатасың, анткени мультфильм бүттү». Макул болбой эле түшүнө аласыз.</p></div>
+        <div class="card"><h3><span>Үчүнчү</span>Туруктуу бол</h3><p>Чек араны бир кыска сүйлөм менен тынч кайталаңыз жана кичине тандоо бериңиз.</p></div>
+      </div>
+      <p class="aside">Бул үч кадам «SOS» баскычында жана «Сүйлөшүү скрипттери» бөлүмүндө даяр сөздөр менен берилген.</p>
+    </article>
+
+    <div class="block" style="padding:8px 0 0">
+      <h3>Бир күндө канча убакыт? Багыт</h3>
+      <div class="age">
+        <div class="age-row"><b>0–2 жаш</b><span>Мүмкүн болушунча жок<span class="rule">Видео чалуу — өзгөчө. Бала үчүн эң жакшы «экран» — сиздин жүзүңүз, үнүңүз жана ойногон оюнуңуз.</span></span></div>
+        <div class="age-row"><b>2–5 жаш</b><span>1 саатка чейин<span class="rule">Чоң киши менен бирге, сапаттуу мазмун, уктоодон мурун жок.</span></span></div>
+        <div class="age-row"><b>6–12 жаш</b><span>Орточо 1–2 саат (сабактан тышкары)<span class="rule">Бирге түзүлгөн график. Уйкуга жана кыймылга жолтоо болбосун.</span></span></div>
+        <div class="age-row"><b>13+ жаш</b><span>Бирге келишилген, көбүнчө 2 саатка жакын<span class="rule">Уйкуда экран жок, күнүнө 60 мүнөт кыймыл, ачык сүйлөшүү.</span></span></div>
+      </div>
+      <p class="aside">ДСУ, Америка педиатрлар академиясынын жана Канаданын 24 саттык кыймыл сунуштарына таянган багыт. Бул — катуу чек эмес: баланын уйкусу, көңүл-күйү, окуусу жана кыймылы жакшы болсо, график ийкемдүү болушу мүмкүн.</p>
+    </div>
+  </section>
+
+  <div id="phases-root"></div>
+
+  <section class="block scripts-sec" id="scripts" aria-labelledby="scripts-t">
+    <h2 id="scripts-t">Сүйлөшүү скрипттери</h2>
+    <p class="sub">Бала каршы чыкканда эмне деп айтуу керек. Баарын жаттаган кереги жок: бир-эки сөздү өзүңүздүкүндөй кылып алсаңыз жетиштүү. Ар бир скрипт үч «Т» эрежесине курулган.</p>
+    <div class="btn-row"><button class="btn quiet" type="button" id="toggle-scripts">Бардыгын ачуу</button></div>
+    <div class="scripts" id="scripts-root"></div>
+  </section>
+
+  <footer class="footer" id="end">
+    <h3>Булактар жана кошумча окуу</h3>
+    <ul class="sources">
+      <li>Дүйнөлүк саламаттык сактоо уюму (ДСУ): 5 жашка чейинки балдар үчүн кыймыл, отурган жүрүш жана уйку боюнча сунуштар (2019); балдар жана өспүрүмдөр үчүн кыймыл боюнча сунуштар (2020).</li>
+      <li>Америка педиатрлар академиясы: «Family Media Use Plan», healthychildren.org.</li>
+      <li>Canadian 24-Hour Movement Guidelines for Children and Youth (2016).</li>
+      <li>Lally P. ж.б. (2010). How are habits formed. European Journal of Social Psychology, 40(6).</li>
+      <li>Gollwitzer P., Sheeran P. (2006). Implementation intentions and goal achievement: a meta-analysis. Advances in Experimental Social Psychology, 38.</li>
+      <li>McDaniel B., Radesky J. (2018). Technoference: parent distraction with technology and child behavior problems. Child Development, 89(1).</li>
+      <li>Gottman J. (1997). Raising an Emotionally Intelligent Child.</li>
+    </ul>
+    <div class="reset-row noprint">
+      <button class="btn quiet" type="button" id="reset-btn">Прогрессти тазалоо</button>
+      <span id="reset-confirm" hidden>
+        <span style="font-weight:700;color:var(--ink)">Чын эле тазалайбызбы?</span>
+        <button class="btn sos" type="button" id="reset-yes" style="min-height:44px;padding:6px 16px">Ооба, тазала</button>
+        <button class="btn quiet" type="button" id="reset-no">Жок</button>
+      </span>
+    </div>
+    <p>Прогресс ушул түзмөктүн браузеринде гана сакталат, эч жакка жөнөтүлбөйт.</p>
+  </footer>
+</main>
+
+<button class="sos-fab" type="button" data-open-sos aria-haspopup="dialog">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>
+  SOS
+</button>
+
+<dialog class="sheet" id="sos" aria-labelledby="sos-title">
+  <div class="sheet-in">
+    <div class="sheet-top">
+      <strong id="sos-title">SOS: бала гистерика кылып жатат</strong>
+      <button class="x" type="button" id="sos-close" aria-label="Жабуу"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+    <ol class="steps" id="sos-steps" aria-label="Кадамдар">
+      <li>Тынчтан</li><li>Түшүн</li><li>Туруктуу бол</li>
+    </ol>
+
+    <section class="step" data-step="0">
+      <h3>1. Тынчтан. Алгач сиз</h3>
+      <p class="big">Бала сиздин тынчтыгыңызды көчүрүп алат. Азыр эч нерсени түшүндүрбөйсүз, эч нерсени чечпейсиз.</p>
+      <div class="breath" id="breath" aria-hidden="true"><span id="breath-label">Дем алыңыз</span></div>
+      <p>3 жолу кайталаңыз: <b>4 секунд дем алып, 6 секунд акырын чыгарыңыз.</b> Мурун үнүңүздү төмөн түшүрүп, ийниңизди бошотуңуз.</p>
+    </section>
+
+    <section class="step" data-step="1" hidden>
+      <h3>2. Түшүн. Сезимин ата</h3>
+      <p class="big">Баланын деңгээлине чөгөлөп, жанында болуңуз.</p>
+      <p class="say"><span class="lab">Айтыңыз</span><q>Сен абдан капа болуп жатасың. Мультфильм бүткөнүнө жаның ооруйт. Мен жаныңдамын.</q></p>
+      <p class="dont"><span class="lab">Айтпаңыз</span><q>Токтот ыйлаганыңды! Уят эмеспи! Эми сага телефон жок!</q></p>
+      <p>Лекция жок, суроо жок, талашуу жок. Бала сүйлөй албаса, жөн эле жанында отуруңуз.</p>
+    </section>
+
+    <section class="step" data-step="2" hidden>
+      <h3>3. Туруктуу бол. Чек ара жана тандоо</h3>
+      <p class="big">Чек араны бир кыска сүйлөм менен, тынч кайталаңыз.</p>
+      <p class="say"><span class="lab">Айтыңыз</span><q>Телефон азыр жатат. Суу ичебизби же кучакташабызбы?</q></p>
+      <p><b>Телефонду кайтарбаңыз.</b> Ыйды токтотуу үчүн берсеңиз, мээ «кыйкырсам, алам» деп үйрөнүп алат. Тынчтангандан кийин (10–30 мүнөттө) 2 мүнөт сүйлөшүңүз: эмне болду, кийинки жолу эмне кылабыз?</p>
+      <p class="safety"><b>Коопсуздук.</b> Бала өзүн же башкаларды уруп жатса, кооптуу нерселерди алып салып, коопсуз жерге өтүңүз. Коркунуч чоң болсо, шашылыш жардамга чалыңыз. Мындай учурлар кайталанса, балдар психологу менен сүйлөшүңүз.</p>
+    </section>
+
+    <div class="sheet-nav">
+      <button class="btn quiet" type="button" id="sos-prev">Артка</button>
+      <button class="btn sos" type="button" id="sos-next">Кийинки кадам</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- data ---------- */
+var PHASES=[
+ {id:1,short:"Даярдык",name:"Даярдык жана психологиялык климат",from:1,to:5,
+  goal:"Баланы эмес, өзүбүздү жана үйдү даярдайбыз. Бул фазада эч нерсени тыйбайбыз.",
+  expect:"Бала экранды мурдагыдай эле колдонот. Сиздин милдетиңиз: байкоо, жылуу байланыш жана жалпы эрежелер боюнча макулдашуу.",
+  check:["Үйдө телефондор «уктай» турган бир жай бар.","Бала эрежелерди түзүүгө катышты.","Күнүнө 15 мүнөт «Бала башкарат» убактысы башталды."]},
+ {id:2,short:"Азайтуу",name:"Экранды акырындык менен азайтуу жана «Телефонду кызыксыз кылуу»",from:6,to:10,
+  goal:"Убакытты акырындык менен кыскартабыз жана телефондун өзүн азыраак тартуучу кылабыз.",
+  expect:"3–7-күндөрү нааразычылык күчөшү мүмкүн. Бул нормалдуу жана убактылуу, өзгөртүү иштеп жатканын билдирет. Эрежени бузбай, жумшак бойдон кала бериңиз.",
+  check:["Экран убактысы 1-күндөгүнүн жарымына же сунушталган чекке жакындады.","Таймер жана токтотуу ритуалы иштейт.","Тамакта жана уктоодон 1 саат мурун экран жок."]},
+ {id:3,short:"Оюндар",name:"Телефондун ордун басуучу 10 физикалык жана сенсордук оюн",from:11,to:15,
+  goal:"Бош калган убакытты кубанычка толтурган оюндар: тез жыйынтык, кадам сайын татаалдашуу, рекорд. Экрандагыдай, бирок денеде, колдордо жана жандуу адамдар менен.",
+  expect:"Алгач бала «тажадым» деши мүмкүн. Оюнга кирүү үчүн 5–10 мүнөт керек: сиз чогуу ойноңуз, анан өзү кирип кетет. Экран убактысы бул фазада 1-күндүн жарымынын тегерегинде калат.",
+  check:["Бала 10 оюндун ичинен 3–4 сүйүктүүсүн атай алат.","«Тажадым» десе, өзү бир нерсе тандайт.","Оюндан кийин экранды сурабайт же тынч кабыл алат."]},
+ {id:4,short:"Бекемдөө",name:"Жаңы адатты бекемдөө жана туруктуу график",from:16,to:20,
+  goal:"Жаңы ыргакты үй-бүлөнүн күнүмдүк жашоосуна айлантабыз: график, сыйлык, кыйын учурларга план.",
+  expect:"Үзгүлтүктөр болот (оору, коноктор, каникул). Максат — мыкты болуу эмес, үзгүлтүктөн кийин кайра графикке кайтуу.",
+  check:["Апталык график муздаткычка илинген.","«Эгер… анда…» пландары жазылган.","Баланын жаңы кызыкчылыгы башталды."]}
+];
+
+var LADDER=[["1-күн",100,"3 с"],["6-күн",80,"2 с 24 м"],["8-күн",65,"1 с 57 м"],["10-күн",50,"1 с 30 м"],["13-күн",40,"1 с 12 м"]];
+
+var GAMES={
+ g1:{n:"Тоскоолдук жолу",age:"4–12 жаш",time:"15–20 мүн",items:"жаздыктар, жип, отургучтар, кагаз, секундомер",
+  how:"Бөлмөдө жол жасаңыз: жаздыктардын үстүнөн секирүү, жиптин астынан өтүү, бир буттап 5 секунд туруу, кагаз учакты челекке ыргытуу. Секундомер менен убакытты өлчөп, рекордду кагазга жазыңыз. Ар кийинки айлампада «рекордду жаңыртабыз».",
+  why:"Тез жыйынтык жана рекорд оюндагы деңгээлдер берген сезимге окшош, бирок бүт денеде."},
+ g2:{n:"Асык оюну",age:"5–14 жаш",time:"15–20 мүн",items:"асыктар же 5 чакан таш",
+  how:"Асыкты (же чакан ташты) жогору ыргытып, ал түшкөнчө жердеги экинчисин алып, түшкөнүн кармаңыз. Ар жолу бирден көбүрөөк алууга аракет кылыңыз. Чоң ата-чоң энеден сурасаңыз, кошумча эрежелерди үйрөтөт, ал дагы өзүнчө кубаныч.",
+  why:"Колдун майда кыймылдары жана көңүл топтоо өнүгөт. Жеңүүнү да, жеңилүүнү да кабыл алууну үйрөнөт."},
+ g3:{n:"Жашыруун баштык",age:"3–10 жаш",time:"10 мүн",items:"баштык, 8–10 кичине буюм",
+  how:"Баштыкка буюмдарды салыңыз: ачкыч, кашык, пуговица, мандарин. Бала көзүн жумуп, колу менен кармап таанып айтат. Кезек менен алмашыңыз: сиз да тапкыла.",
+  why:"Терисинин сезими иштейт жана көңүл «азыр, ушул жерге» келет."},
+ g4:{n:"Күрүч же буурчак кутусу",age:"2–8 жаш (чоңдор: ундан тесто)",time:"20 мүн",items:"чоң идиш, күрүч же буурчак, кичине кашык, чакан оюнчуктар",
+  how:"Идишке күрүч же буурчак куюп, ичине 5–6 чакан оюнчук көмүңүз. Бала колу менен «казып» табат. Кашык менен куюп өткөрүү — кошумча оюн. Чоңураактарга: ун, суу жана аз туздан тесто жууруп, фигуралар жасоо.",
+  why:"Тери жана колдор үчүн тынчтандыруучу, кайталануучу кыймыл.",
+  safe:"3 жашка чейинки балдарга майда нерселер кооптуу. Кароосуз калтырбаңыз."},
+ g5:{n:"Картон шаар же робот",age:"4–12 жаш",time:"30–45 мүн",items:"картон кутулар, скотч, фломастер, кайчы (чоң киши)",
+  how:"Кутулардан шаар же робот куруңуз. Татаалдатуу: «Робот 3 кыймыл кыла алсын», «Шаарда 5 бийик үй болсун». Бүткөндөн кийин «жаңы шаардын ачылышы» майрамын өткөрүңүз.",
+  why:"Максат, пландоо жана колдор менен иштөө. Жыйынтыкты көрүү «мен жасадым» сезимин берет."},
+ g6:{n:"Тогуз коргоол жана үстөл оюндары",age:"6+ жаш",time:"20–30 мүн",items:"тогуз коргоол (же шашка, домино, карта)",
+  how:"Тогуз коргоол — кыргыздын салттуу ойлонуу оюну. Эрежесин билбесеңиз, чогуу үйрөнүңүз: бул дагы пайдалуу. Шашка же домино да болот. Ар бир оюндан кийин жеңген киши кийинки оюнду тандайт.",
+  why:"Ойлонуу, күтүү жана жеңилүүнү көтөрүү көндүмү, адам менен түз баарлашуу."},
+ g7:{n:"Тоңуп калуу бийи",age:"3–10 жаш",time:"10–15 мүн",items:"музыка",
+  how:"Музыка ойнойт, баары бийлейт. Музыка токтойт, баары айкел болуп «тоңуп» калат. Кыймылдаган киши кезектеги тапшырманы аткарат (жаныбар болуп секирүү, ырдоо). Сиз да бийлеңиз.",
+  why:"Импульсту кармоо оюн аркылуу машыгат, кыймыл жана күлкү көңүл-күйдү көтөрөт."},
+ g8:{n:"Боорсок бышыруу",age:"5+ жаш",time:"40–60 мүн",items:"ун, суу же сүт, ачыткы, туз, май",
+  how:"Чоң киши менен чогуу камыр жууруп, формасын жасаңыз. Бала ун өлчөйт, камыр жууруйт, боорсокторду түзөт. Майга салууну чоң киши жасайт. Жыйынтыгын бирге жейсиз.",
+  why:"Даам, жыт, жылуулук жана колдор: көп сезим. Жыйынтыкты жеш — эң таза жана тез сыйлык.",
+  safe:"Ысык майдын жанында бала болбосун, ал жерде чоң киши гана иштейт."},
+ g9:{n:"Жер, Суу, Аба",age:"5–12 жаш",time:"15–20 мүн",items:"топ, 3 жана андан көп оюнчу",
+  how:"Баары тегерек болуп турат. Жетекчи топту бирөөгө ыргытып «Жер!», «Суу!» же «Аба!» дейт. «Жер» болсо жерде жашаган жаныбардын атын, «Суу» болсо балыктын атын, «Аба» болсо канаттуунун атын айтып, топту кайра ыргытасыз. Топ түшсө же жооп кайталанса, бир упай жоголот.",
+  why:"Көңүл жана тез ой, кыймыл, команда болуп ойноо."},
+ g10:{n:"Табият кенчи",age:"4–12 жаш",time:"40–60 мүн",items:"баштык, сүрөттүү тизме",
+  how:"Паркка же короого чыгып, 10 нерсе табыңыз: үч түрдүү жалбырак, жылма таш, жыты бар нерсе, сары нерсе, канат ж.б. Ким тез эмес, баары чогуу тапканда «кенч ачылды».",
+  why:"Күн жарыгы, кыймыл жана табият: көңүл-күйгө жана уйкуга жакшы таасир берет."}
+};
+
+var DAYS=[
+ {n:1,t:"Чындыкты жазыңыз",
+  task:"Бүгүн эч нерсени өзгөртпөңүз. Баланын экранда канча убакыт өткөргөнүн жана качан колдонорун жазыңыз.",
+  steps:["Телефондун «Экран убактысы» бөлүмүнө кирип (Android: Digital Wellbeing, iPhone: Экран убактысы) орточо күндүн санын жазыңыз.","Төрт убакытта белгилеңиз: эртең менен, мектептен кийин, кечки тамакка чейин, уктоодон мурун.","Кандай учурда телефон сурайт? Тажаганда, тамакта, сиз иштеп жатканда, ызы-чууда? Жазып коюңуз."],
+  why:"Өлчөбөсөңүз, өзгөрүүнү көрө албайсыз. Көбүнчө чыныгы сан ойлогондон чоң чыгат. Экран кайсы учурда эмнени алмаштырып жатканын билсеңиз, кийинки кадамдар так болот.",
+  tip:"Бул баа берүү эмес, байкоо. Бүгүн баланы эч нерсе үчүн жазалабаңыз жана ачууланбаңыз."},
+ {n:2,t:"Өз телефонуңузду карап көрүңүз",
+  task:"Бала көзүнчө телефонду канча жолу алганыңызды эсептеңиз жана үйдө бир «телефонсуз саат» тандаңыз, мисалы кечки тамак.",
+  steps:["Чөнтөгүңүзгө кагаз салып, телефонду алган сайын сызык тартыңыз.","Кечки тамакты бүт үй-бүлө үчүн телефонсуз кылыңыз. Сиздин телефон да башка бөлмөдө.","Баланы мактаңыз: «Сенин жанымда болгонума кубанычтамын»."],
+  why:"Балдар айткандан көрө көргөнүн кайталайт. Ата-эненин телефону баарлашууну үзгөндө (изилдөөчүлөр муну «технофренс» дейт) балдардын жүрүм-турумундагы көйгөйлөр көбөйүшү менен байланыш табылган.",
+  say:"Мен да телефонду көп колдонуп жүрөм экенмин. Эми экөөбүз тең өзгөртөбүз: кечки тамакта телефондор уктап жатат."},
+ {n:3,t:"Үй жыйналышы: эрежени бирге түзөбүз",
+  task:"Тынч учурда 10–15 мүнөт отуруп, экран боюнча 3 эрежени бала менен бирге жазыңыз. Баланын сунушунун бирин сөзсүз кошуңуз.",
+  steps:["Алгач сураңыз: «Телефондо эң жакшы көргөнүң эмне? Эмне үчүн?» Тыңдаңыз, оңдобоңуз.","Анан: «Мээбиз эс алышы керек. Кел, 3 эрежени чогуу ойлоп табалы».","Чоң кагазга сүрөт менен жазып, муздаткычка илиңиз. Баары кол коёт, сиз да.","Үлгү: 1) Тамакта экран жок. 2) Уктоодон 1 саат мурун экран жок. 3) Таймер бүтсө, экран жатат."],
+  why:"Бала эрежени түзүүгө катышса, аны «мага буюрулган» эмес, «менин эрежем» деп кабыл алат. Өз алдынчалыкка болгон табигый муктаждык ушундай иштейт.",
+  say:"Мен сени телефондон бөлгүм келбейт. Бирок баарыбыздын мээбиз эс алышы керек. Кандай эреже сунуштайсың?",
+  tip:"3–5 жашар балага эрежелерди сүрөт менен чийип бериңиз."},
+ {n:4,t:"Үйдү даярдоо: көрүнбөсө, каалоо азаят",
+  task:"Бардык зарядкаларды жатын бөлмөдөн чыгарып, бир жалпы «телефондун үйүнө» коюңуз. Баланын көз алдынан экрандарды алып, ордуна кызыктуу нерселерди коюңуз.",
+  steps:["Бир токчо же кутуча тандаңыз: ал «телефондун үйү». Түнкүсүн баары ошол жерде заряддалат, сиздикин кошо.","Теледидар жана планшет көзгө урунбасын: шкафка же жабуучуга салыңыз.","Баланын бөлмөсүнө жана залга 5 нерсе көрүнүктүү коюңуз: конструктор, пластилин, дептер менен фломастер, топ, китеп."],
+  why:"Көргөн нерсе каалоо жаратат. Чөйрөнү өзгөртүү «өзүңдү кармап тур» деп талап кылуудан ишенимдүү, анткени баланын эркине жүк түшпөйт.",
+  tip:"«Жаза» катары көрсөтпөңүз. Бул «биздин жаңы үйдүн тартиби»."},
+ {n:5,t:"15 мүнөт «Бала башкарат»",
+  task:"15 мүнөт толук көңүл менен баланын оюнуна кошулуңуз. Оюнду бала башкарат: сиз буйрук бербейсиз, суроо бербейсиз, оңдобойсуз.",
+  steps:["Таймерди 15 мүнөткө коюңуз. Телефон башка бөлмөдө.","Баланын иш-аракетин кыскача сүрөттөңүз: «Сен кызыл унааны көпүрөдөн өткөрүп жатасың».","Так мактаңыз: «Мунараны абайлап койдуң, бекем чыкты!»","Таймер бүткөндө: «Эртең дагы 15 мүнөт болот». Ар күн."],
+  why:"Бала көңүл бурууну экрандан да, жаман жүрүм-турумдан да издеши мүмкүн. Күнүнө 15 мүнөт чыныгы көңүл ошол «жетишпегендикти» толтурат жана ата-эне менен байланышты бекемдейт. Бул ыкма ата-эне менен бала мамилесин жакшыртуучу программаларда колдонулат.",
+  say:"Бул 15 мүнөт сенин убактың. Эмне ойногуң келет?"},
+
+ {n:6,t:"Таймер жана 20% азайтуу",
+  task:"1-күндөгү орточо убакытты 20% кыскартыңыз жана көрүнүүчү таймер колдонуңуз (кум саат же ашкана таймери).",
+  steps:["Эсептеңиз: 3 саат болсо, 2 саат 25 мүнөт болот. Тегеректеп 2,5 саат алсаңыз болот.","Убакытты бир-эки терезеге бөлүңүз: түштөн кийин жана кечинде.","Бүтөөр жери бар мазмунду тандаңыз: бир серия. Эскертүү: 10, 5, 1 мүнөт калды.","Таймер шыңгырады, экран жатат. Таймер «босс», сиз эмес."],
+  why:"Көрүнүүчү таймер сизди «жаман ата-энеге» айландырбайт: токтотууну таймер жасайт. Акырындап азайтуу кескин кесүүгө караганда азыраак каршылык жаратат.",
+  say:"Таймер 10 мүнөттөн кийин шыңгырайт. Шыңгыраганда мультфильмди токтотобуз. Жаңы серия эртең."},
+ {n:7,t:"Телефонду кызыксыз кылуу: боз түс жана автоойнотуусуз",
+  task:"Баланын түзмөгүндө боз (ак-кара) режимди иштетиңиз, автоойнотууну жана билдирмелерди өчүрүңүз.",
+  steps:["Орнотуулордон «боз шкала» (grayscale) деп издеңиз: Android да, iPhone да бар.","YouTube жана башка колдонмолордо «Авто-ойнотууну» (Autoplay) жана билдирмелерди өчүрүңүз.","Эң «жабышчаак» колдонмолорду (бүтпөгөн ленталар: Shorts, Reels, TikTok) баланын түзмөгүнөн алып салыңыз. Ордуна башталышы жана аягы бар мазмун: бир серия, бир деңгээл.","Бала нааразы болсо: «Үч күндүк эксперимент. Эмне өзгөрөрүн карайбыз»."],
+  why:"Жаркыраган түстөр, бүтпөс лента жана кийинки видеонун автоматтык башталышы «дагы бир» деген каалоону түртөт. Боз түс жана автобаштоосуз телефон «оюнчуктан» «шаймандай» нерсеге айлана баштайт.",
+  tip:"Үч күндөн кийин бала менен бирге отуруп чечиңиз: боз түстү калтырабызбы же жокпу."},
+ {n:8,t:"Экран жок аймактар жана убакыттар",
+  task:"Үч «экран жок аймак» киргизиңиз: дасторкон, жатын бөлмө, ванна. Жана бир «экран жок убакыт»: уктоодон 60 мүнөт мурун.",
+  steps:["Үч жерге белги илиңиз: «Бул жерде телефон уктайт».","Уктоодон 1 саат мурунку ритуал: душ, пижама, тиш тазалоо, китеп же жомок, жарыкты өчүрүү.","Түнкүсүн баары «телефондун үйүндө»."],
+  why:"Уктоодон мурунку экран уйкуну кечиктирип, сапатын төмөндөтөт: бала чарчап, кыжырдануучу болот. Тамакта экран болсо, канганын сезбей көп жеши мүмкүн жана үй-бүлөлүк баарлашуу жоголот.",
+  say:"Дасторкондо телефон уктайт, анткени биз бири-бирибизди угабыз. Айтчы, бүгүн эң кызыктуу нерсе эмне болду?"},
+ {n:9,t:"«Алгач… анан…» жана токтотуу ритуалы",
+  task:"Күн ичинде 2 «Алгач… анан…» кыймылын киргизиңиз жана экранды бүтүрүүнүн кыска ритуалын жасаңыз.",
+  steps:["Алгач милдет, анан экран: «Алгач тиш тазалайбыз, анан 20 мүнөт мультфильм».","Ритуал: таймер шыңгырады, жакшы көрүнүш болду деп мактаңыз, бала өзү өчүрөт, суу ичебиз, кийинки иш (оюнчуктарды жыйноо).","«Өзү өчүрсүн»: өчүрүү баскычын баланын өзү бассын. Ошондо ал «мен башкарам» деп сезет."],
+  why:"«Алгач… анан…» психологияда Премак принциби деп аталат: жагымдуу иш менен милдеттин ортосундагы жөнөкөй шилтеме. Токтотуу ритуалы эң кыйын учурду алдын ала болжолдонуучу кылат.",
+  say:"Алгач тиш тазалайбыз, анан мультфильм. Экөөнө тең убакыт жетет.",
+  tip:"Бул пара эмес. Пара: «ыйлабасаң, телефон беремин». Ыргак: «ар күнү тиш тазалагандан кийин 20 мүнөт»."},
+ {n:10,t:"Тажоо: мээнин эс алуусу",
+  task:"Күнүнө 20–30 мүнөт «пландалбаган убакыт» киргизиңиз: экран жок, ата-эне ойноого мажбурлабайт. «Тажоо баржасына» 10 идея жазыңыз.",
+  steps:["«Тажоо баржасын» жасаңыз: бала менен кагаздарга иштерди жазып идишке салыңыз (боёо, жаздыктан үй куруу, бирге бышыруу, хоккей ойноо).","«Тажадым» десе, шашпаңыз: «Түшүнөм. Баржадан бир кагаз тарт же өзүң ойлоп тап».","Өзүңүз сунуш кылып, куткарып койбоңуз. 10–15 мүнөт тажоо — нормалдуу."],
+  why:"Тажоо — мээ жаңы идея издеп жатканынын белгиси. Бала дайыма экран менен толтурулса, өзү ойлоп табууну үйрөнбөйт. Тажоону өз күчү менен чечүү көндүмү экранга көз карандылыкты азайтууга жардам берет.",
+  say:"Тажадым дедиң, түшүнөм. Бул мээ жаңы идея издеп жатканы. Баржадан бир кагаз тартасыңбы же өзүң ойлоп табасыңбы?"},
+
+ {n:11,t:"Кыймыл күнү",games:["g1","g2"],
+  task:"Бүгүн 2 оюн: «Тоскоолдук жолу» жана «Асык оюну». Кайсынысынан баштоону бала тандасын.",
+  steps:["Тандоо бериңиз: «Бүгүн эки оюн бар. Кайсынысынан баштайбыз?»","Телефонуңуз көзгө урунбасын. Оюнга сиз да катыңыз.","Аягында 2 мүнөт: «Эң кызыгы эмне болду?»"],
+  why:"Тез жыйынтык, рекорд жана ийгилик сезими оюндагы «деңгээлдердин» таза версиясы. Тандоо берүү баланга «мен башкарам» сезимин кайтарат.",
+  say:"Оюн жакты, мен да кубанам. Экран убактысы бүгүн кечинде. Азыр кийинки оюнду тандайбызбы?",
+  tip:"Оюндан кийин бала экран сураса, ушул сөздөрдү колдонуңуз."},
+ {n:12,t:"Колдор жана сезүү күнү",games:["g3","g4"],
+  task:"Бүгүн 2 оюн: «Жашыруун баштык» жана «Күрүч же буурчак кутусу».",
+  steps:["Оюнду алдын ала даярдап коюңуз: бала келгенде баары даяр турсун.","Күрүчтүн чачылышына уруксат бериңиз: жыйноо оюндун бир бөлүгү.","Оюндан кийин колдорду бирге жууп, 2 мүнөт сүйлөшүңүз: кайсынысы жагымдуу болду?"],
+  why:"Экран негизинен көз менен кулакты иштетет. Колдор менен кармап сезүү мээге башка, тынч кубанычты берет жана көңүлдү «азыр, ушул жерге» кайтарат."},
+ {n:13,t:"Куруу жана ойлонуу күнү",games:["g5","g6"],
+  task:"Бүгүн 2 оюн: «Картон шаар же робот» жана «Тогуз коргоол» (же үстөл оюну).",
+  steps:["Картон кутуларды алдын ала чогултуп коюңуз (дүкөндөрдөн бекер берет).","Үстөл оюну үчүн 20–30 мүнөт тандаңыз, өтө узак эмес.","Баланы дайыма жеңдирип коюуга аракет кылбаңыз. Жеңилгенин кабыл алганын мактаңыз."],
+  why:"Максат, пландоо жана колдор менен иштөө — баланын эң күчтүү жыйынтык сезими. Үстөл оюну жеңилүүгө чыдоону жана күтүүнү үйрөтөт, бул экранда эң кыйын көндүмдөр."},
+ {n:14,t:"Музыка жана даам күнү",games:["g7","g8"],
+  task:"Бүгүн 2 оюн: «Тоңуп калуу бийи» жана «Боорсок бышыруу».",
+  steps:["Бий үчүн шайыр музыканы алдын ала тандаңыз.","Боорсок үчүн азыктарды даярдап, ысык май менен иштөөнү өзүңүз гана жасаңыз.","Жеп жатканда телефон жок: даам жана жыт жөнүндө сүйлөшүңүз."],
+  why:"Бий жана музыка импульсту кармоону (токтоо) оюн аркылуу үйрөтөт. Бирге бышыруу эң таза «сыйлык»: бала аракет кылды, жыйынтыкты көрдү, даамын татты."},
+ {n:15,t:"Сырттагы күн",games:["g9","g10"],
+  task:"Бүгүн 2 оюн: «Жер, Суу, Аба» жана «Табият кенчи». Мүмкүн болсо, сыртта.",
+  steps:["Күндүн жарыгында бир сааттан кем эмес болууга аракет кылыңыз.","Оюндан кийин үй-бүлөлүк суу же шире ичип, отуруңуз.","Кечинде 5 күндүн жыйынтыгын сураңыз: «Кайсы оюндар эң жакты?»"],
+  why:"Күн жарыгы, кыймыл жана табият көңүл-күйгө жана кечки уйкуга жакшы таасир берет. Кайсы оюндар жакканын билсеңиз, 16-күндөгү графикке киргизесиз."},
+
+ {n:16,t:"Үй-бүлөлүк апталык график",sched:true,
+  task:"Бүт үй-бүлө менен 1 беттик апталык график түзүңүз: экран терезелери, экран жок убакыттар, кыймыл жана үй-бүлөлүк иштер. Муздаткычка илиңиз.",
+  steps:["Таблицаны чийиңиз же төмөнкү үлгүнү көчүрүңүз: иш күндөрү жана дем алыш күндөрү.","Экран терезелерин жазыңыз. Өлчөмүн «Бир күндө канча убакыт» таблицасынан тандаңыз.","Ар күнгө бир кыймыл жана бир үй-бүлөлүк иш (оюн, жөө басуу, бирге бышыруу) белгилеңиз.","Баары кол коёт. Сиз да."],
+  why:"Жазуу жүзүндөгү, баары көрө турган график «ата-эне менен баланын талашы» эмес, «үйдүн эрежеси» болуп калат. Ийкемдүү, бирок так график көбүнчө эң туруктуу."},
+ {n:17,t:"Сыйлык: экран эмес, биргелик",
+  task:"«Мен жасадым» картасын жасаңыз: бала эрежени аткарган сайын белги. Жуманын аягында сыйлык: экран эмес, биргелик убакыт.",
+  steps:["3 жүрүм-турумду тандаңыз: таймер шыңгыраганда өзү өчүрдү, кечки тамакта телефонсуз отурду, уктоодон мурун телефонду «үйүнө» койду.","Ар бирин 10 секунд ичинде так жана жылуу мактаңыз.","Жуманын аягында сыйлыкты бала өзү тандасын (3 вариант бериңиз): парк, жөө басуу, үй-бүлөлүк кечки аш, чогуу оюн кечеси."],
+  why:"Жакшы жүрүм-турумду дароо байкап мактоо — аны кайталатуунун эң күчтүү жолу. Сыйлык катары экран берсеңиз, ал дагы баалуу болуп, каалоо күчөйт. Ата-эне менен убакыт — экранга каршы эң күчтүү сыйлык.",
+  say:"Мен көрдүм: таймер шыңгырады, сен өзүң өчүрдүң. Ал үчүн чоң рахмат. Бул чыныгы күч."},
+ {n:18,t:"«Эгер… анда…» планы: кыйын учурларга даярдык",
+  task:"Эң кыйын 4 жагдайды жазып, ар бирине «Эгер… анда…» план түзүңүз: жол, коноктор, оору, чоң ата-чоң эненин үйү.",
+  steps:["Эгер жолдо бала телефон сураса, анда: жолдогу оюндар (терезеден «кызыл унааны тап», жаныбар аталыштары) жана алдын ала жүктөлгөн аудио жомок.","Эгер чоң эненикине барсак, анда: алдын ала чоң энеге эреже жөнүндө айтып коюңуз (төмөнкү сөздөрдү колдонуңуз).","Эгер бала ооруп жатса, анда: эрежени убактылуу жумшартып, кайра кайтуу күнүн белгилеңиз («Дүйшөмбүдөн эрежеге кайтабыз»).","Эгер каникул болсо, анда: күнүнө бир «чоң иш» (секция, жөө басуу, бышыруу) пландаңыз."],
+  why:"«Эгер X болсо, Y кылам» түрүндөгү алдын ала план максатты аткарууну олуттуу жакшыртканы көптөгөн изилдөөлөрдүн жыйынтыгында тастыкталган (Готцольцер жана Ширан, 2006). Кыйын учурда ойлонууга убакыт жок, даяр план жардам берет.",
+  say:"Эне, мен балам менен экран боюнча үй эрежесин киргиздим: бул баланын уйкусу жана көңүл-күйү үчүн. Силерде да экранга көп убакыт бербей, анын ордуна бирге ойносоңуздар, абдан ыраазы болом. Силердин колдооңузга ишенем."},
+ {n:19,t:"Жаңы «мен»: кызыкчылык жана кыймыл",
+  task:"Баланын бир жаңы кызыкчылыгын (секция, ийрим, аспап, китеп, куруу) тандаңыз жана биринчи кадамды жасаңыз. Күнүнө 60 мүнөт кыймылды календарга жазыңыз.",
+  steps:["Баладан сураңыз: «Экранда эмес, эмнени үйрөнгүң келет?» Тыңдаңыз: футбол, сүрөт, жылкы минүү, шахмат, музыка.","Бекер сынамык сабакты табыңыз: китепкана, спорт клубу, балдар борбору же жакын жердеги ийрим.","Күнүнө 60 мүнөт кыймыл (ДСУ сунушу: 5–17 жаш үчүн орточо күнүнө 60 мүнөт, бөлүп-бөлүп да болот)."],
+  why:"Экрандан арылган бала «эч нерсе кылбай» калбашы керек. Жаңы кызыкчылык ага «мен киммин?» деген жаңы жоопту берет жана узак мөөнөткө экрандын ордун басат."},
+ {n:20,t:"Жыйынтык, майрам жана «кайра баштоо» эрежеси",final:true,
+  task:"1-күндөгү сандар менен салыштырыңыз, баланы жана өзүңүздү мактаңыз, жана «үзгүлтүк болсо» планын жазыңыз. Майрам: экран эмес, чогуу бир кубанычтуу чыгуу.",
+  steps:["Салыштырыңыз: орточо экран убактысы (1-күн жана бүгүн), уйку, көңүл-күй, жанжал саны.","Үй жыйналышы: «Эмне жакты? Эмне кыйын болду? Эмнени өзгөртөбүз?» Баланын жообун жазыңыз.","Майрам: парк, пикник же чогуу жасаган кечки аш.","Үзгүлтүк болсо: уруш да, айыптоо да жок. 16-күндөгү графикке бир күндө кайтасыз. Бир жолу артка кетүү — жеңилүү эмес, үйрөнүүнүн бир бөлүгү.","Жумасына 10 мүнөт «үй жыйналышы»: график иштеп жатабы?"],
+  why:"Адаттар түз сызык менен эмес, толкун менен орноюшат. Орточо эсеп менен адат толук орношуна 66 күн кетет, ошондуктан 20 күн — сиздин баштапкы ыргагыңыз. Үзгүлтүктөн кийин кайра баштоо — эң маанилүү көндүм.",
+  say:"Биз абдан жакшы иштедик. Кыйын болду, бирок биз экөөбүз бирге жасадык. Бир нерсе бузулса, кайра башынан баштайбыз. Бул жөнөкөй эле."}
+];
+
+var SCHED=[
+ ["Эртең менен","Экран жок","Экран жок"],
+ ["Мектептен кийин","Кыймыл 60 мүн, сабак","Үй-бүлөлүк чыгуу же оюн"],
+ ["Экран терезеси","1 жолу, 40–60 мүн","2 жолу, 60 мүн"],
+ ["Кечки тамак","Экран жок","Экран жок"],
+ ["Уктоодон 1 саат мурун","Экран жок: китеп, жомок","Экран жок: китеп, жомок"]
+];
+
+var SCRIPTS=[
+ {t:"«Дагы бир гана мүнөт!»",
+  say:"Мультфильм кызыктуу болуп жатат, токтотуу кыйын экенин түшүнөм. Таймер шыңгырады, экран жатат. Жаңы серия эртең. Азыр сен өчүрөсүңбү же мен өчүрөмбү?",
+  dont:"Мен сага 100 жолу айттым, дагы бир мүнөт болбойт!",
+  why:"Сезим, бир чек ара жана кичине тандоо. Сүйлөшүп-талашуу жок."},
+ {t:"Катуу ыйлайт, кыйкырат, жерге жатат",
+  say:"Сен абдан капаласың. Мен жаныңдамын. Телефон азыр жатат. Мен күтөм.",
+  dont:"Токтот ыйлаганыңды! Уят эмеспи! Сага телефон жок!",
+  why:"Ыйдын ичинде логика иштебейт. Аз сөз, жылуулук жана туруктуулук. SOS баскычын ачыңыз."},
+ {t:"«Баары телефон колдонот, мага эмне үчүн болбойт?»",
+  say:"Башка үйлөрдө башка эрежелер бар. Бизде мээбиз, уйкубуз жана кыймылыбыз үчүн ушундай эреже. Достторуң менен кандай байланышаарыңды чогуу ойлонобуз.",
+  dont:"Башкалар эмне кылса, мага баары бир!",
+  why:"Бала достору менен бирдей болгусу келет. Бул каалоону жокко чыгарбай, чек араны түшүндүрүңүз."},
+ {t:"«Сиз да телефондо отурасыз!»",
+  say:"Туура айтасың, мен да көп колдонуп жүрөм. Мен да өзгөртүүгө аракет кылам. Кечки тамакта экөөбүздүн телефон уктайт. Унутуп калсам, эскертип койсоң жакшы болот.",
+  dont:"Мен чоңмун, мага болот.",
+  why:"Чындыкты мойнуңузга алуу — эң күчтүү үлгү. Балдар айтканыңызды эмес, көргөнүн кайталайт."},
+ {t:"«Тажадым!»",
+  say:"Түшүнөм. Тажоо — мээ жаңы идея издеп жаткан убакыт. Баржадан бир кагаз тарт же 10 мүнөт өзүң ойлоп тап. Анан мен жардам берем.",
+  dont:"Оюнчуктар толуп жатат! Эмне үчүн тажайсың?",
+  why:"Сиз «куткаруучу» болбойсуз. Баланын өзү чечүүнү үйрөнөт."},
+ {t:"Уктаар алдында «Дагы бир видео!»",
+  say:"Видео кызыктуу экенин көрүп жатам. Уктоо убактысы: телефон үйүндө уктайт. Азыр жомок же сүйлөшүү: кайсынысын тандайсың?",
+  dont:"Бүттү деп айттым! Дароо уктагыла!",
+  why:"Ритуалды алдын ала түзүңүз (8-күн), анда бул учурда талаш аз болот."},
+ {t:"Тамакта телефон сурайт",
+  say:"Дасторконго телефон жатат. Биз бири-бирибизди угабыз. Бүгүн эң кызыктуу нерсе эмне болду?",
+  dont:"Дасторкондо телефон болбойт деп айттым го!",
+  why:"Эреже баарына бирдей: сиздин телефон да башка бөлмөдө."},
+ {t:"Телефонду жашырып колдонду же калп айтты",
+  say:"Мен сенин телефонду жашырып колдонгонуңду көрдүм. Мен ачуулангым келбейт: сен аны абдан каалагансың го. Чындык айтканың кыйын, ошон үчүн рахмат. Эмне кыйын болуп жатат? Бирге план түзөлү.",
+  dont:"Сен калп айтасың! Мындан ары сага эч качан ишенбейм!",
+  why:"Жашырып колдонуу — эреже өтө катуу экенинин белгиси болушу мүмкүн. Айыптоо жашыруунду күчөтөт, сүйлөшүү азайтат."},
+ {t:"«Достор менен онлайн ойнойм, чыгып кетсем алар капа болот»",
+  say:"Достор сен үчүн маанилүү экенин түшүнөм. Оюндун башталышына чейин убакытты макулдашалы: бир раунд, аягы бар. Достторуңа мурун айтып кой: «Мен 40 мүнөттөн кийин чыгам».",
+  dont:"Оюн куру убакыт өткөрүү, достор керек эмес!",
+  why:"Баланын өзү досторуна убакытты алдын ала айтса, «чыгып кетүү» ыңгайсыздыгы жоголот."},
+ {t:"«Мен сени жек көрөм!»",
+  say:"Сен абдан ачуулуу экенсиң. Мен сени сүйөм, жана эреже ошол бойдон калат. Тынчтангандан кийин кучакташабыз.",
+  dont:"Мен сага ушунча кылам, сен болсо мындай дейсиң!",
+  why:"Бул — ачуунун сөзү, чындык эмес. Таарынбай, жылуу калыңыз."},
+ {t:"Чоң ата же чоң эне телефон берип коет",
+  say:"Эне, мен силерге ыраазымын. Биз баланын уйкусу жана көңүл-күйү үчүн жаңы үй эрежесин сынап жатабыз. Телефондун ордуна чогуу китеп окуп же ойноп берсеңиз, абдан сүйүнөм. Силердин колдооңузга ишенем.",
+  dont:"Силер баланы бузуп жатасыңар!",
+  why:"Чоң адамдар менен «биз бир командабыз» деген мамиле конфликтти азайтат. Айыптоо жок, өтүнүч жана ыраазычылык."}
+];
+
+/* ---------- state ---------- */
+var KEY="ekran20-v1";
+var state={done:{}};
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);if(o&&o.done&&typeof o.done==="object")state=o;}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function phaseOf(n){for(var i=0;i<PHASES.length;i++){if(n>=PHASES[i].from&&n<=PHASES[i].to)return PHASES[i];}}
+
+/* ---------- render ---------- */
+function gameHTML(id){
+  var g=GAMES[id];
+  return '<div class="game"><h4>'+g.n+'</h4><div class="meta"><span>'+g.age+'</span><span>'+g.time+'</span></div>'+
+    '<p><b>Керек:</b> '+g.items+'</p><p>'+g.how+'</p><p class="why"><b>Мээге пайдасы:</b> '+g.why+'</p>'+
+    (g.safe?'<p class="safe">'+g.safe+'</p>':'')+'</div>';
+}
+function schedHTML(){
+  var h='<div class="sched"><table><thead><tr><th>Убакыт</th><th>Иш күндөрү</th><th>Дем алыш күндөрү</th></tr></thead><tbody>';
+  SCHED.forEach(function(r){h+='<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';});
+  return h+'</tbody></table></div>';
+}
+function dayHTML(d){
+  var h='<article class="day" id="day-'+d.n+'" data-day="'+d.n+'">'+
+   '<header class="day-head"><span class="day-num"><small>күн</small>'+d.n+'</span><h3>'+d.t+'</h3></header>'+
+   '<label class="task"><input type="checkbox" data-day="'+d.n+'" id="chk-'+d.n+'"><span class="box" aria-hidden="true"></span>'+
+   '<span class="task-text"><b>Негизги тапшырма</b><span>'+d.task+'</span></span></label>';
+  if(d.games){h+=d.games.map(gameHTML).join('');}
+  h+='<details class="more"><summary>Кадамдар жана эмне үчүн иштейт</summary><div class="more-body">'+
+   '<div class="sec"><h4>Кадамдар</h4><ol>'+d.steps.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol></div>';
+  if(d.sched){h+=schedHTML();}
+  h+='<div class="sec"><h4>Эмне үчүн иштейт</h4><p>'+d.why+'</p></div>';
+  if(d.say){h+='<p class="say"><span class="lab">Эмне деп айтабыз</span><q>'+d.say+'</q></p>';}
+  if(d.tip){h+='<p class="aside"><b>Кеңеш.</b> '+d.tip+'</p>';}
+  h+='</div></details></article>';
+  return h;
+}
+function ladderHTML(){
+  var h='<div class="ladder"><h3>Азайтуу тепкичи</h3><p class="cap">Мисал: 1-күндө баланын орточо экран убактысы 3 саат болсо. Сиздики башка болсо, пайызды колдонуңуз. Максат: 1-күндүн жарымына же жаш боюнча сунушталган чекке чейин түшүү.</p>';
+  LADDER.forEach(function(l){h+='<div class="lad"><span>'+l[0]+'</span><div class="track"><div class="fill" style="width:'+l[1]+'%">'+l[1]+'% · '+l[2]+'</div></div></div>';});
+  return h+'</div>';
+}
+function phaseHTML(p){
+  var days=DAYS.filter(function(d){return d.n>=p.from&&d.n<=p.to;});
+  var h='<section class="phase" id="phase-'+p.id+'" data-phase="'+p.id+'" aria-labelledby="ph'+p.id+'-t">'+
+   '<header class="phase-head"><p class="eyebrow">Фаза '+p.id+' · '+p.from+'–'+p.to+'-күн</p><h2 id="ph'+p.id+'-t">'+p.name+'</h2>'+
+   '<p class="goal">'+p.goal+'</p><p class="expect"><b>Эмне күтөбүз.</b> '+p.expect+'</p>'+
+   '<p class="phase-count"><span data-phase-count="'+p.id+'">0/5</span> аткарылды</p></header>';
+  if(p.id===2){h+=ladderHTML();}
+  if(p.id===3){h+='<div class="chips" aria-label="10 оюндун тизмеси">'+
+    days.map(function(d){return d.games.map(function(g){return '<a class="chip" href="#day-'+d.n+'">'+GAMES[g].n+'</a>';}).join('');}).join('')+'</div>';}
+  h+='<div class="days">'+days.map(dayHTML).join('')+'</div>';
+  h+='<div class="check"><h4>Фазаны бүтүрүүдөн мурун текшерүү</h4><ul>'+p.check.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div></section>';
+  return h;
+}
+$("#phases-root").innerHTML=PHASES.map(phaseHTML).join('');
+
+$("#scripts-root").innerHTML=SCRIPTS.map(function(s){
+  return '<details class="script"><summary>'+s.t+'</summary><div class="script-body">'+
+   '<p class="say"><span class="lab">Айтыңыз</span><q>'+s.say+'</q></p>'+
+   '<p class="dont"><span class="lab">Айтпаңыз</span><q>'+s.dont+'</q></p>'+
+   '<p class="why"><b>Эмне үчүн:</b> '+s.why+'</p></div></details>';
+}).join('');
+
+$("#progress-rows").innerHTML=PHASES.map(function(p){
+  var dots='';for(var n=p.from;n<=p.to;n++){dots+='<a class="dot" href="#day-'+n+'" data-dot="'+n+'" aria-label="'+n+'-күн">'+n+'</a>';}
+  return '<div class="prow" data-phase="'+p.id+'"><span class="prow-name">Фаза '+p.id+' · '+p.short+'</span><div class="dots">'+dots+'</div><span class="prow-n" data-phase-count="'+p.id+'">0/5</span></div>';
+}).join('');
+
+/* ---------- update ---------- */
+function nextDay(){for(var n=1;n<=20;n++){if(!state.done[n])return n;}return null;}
+function update(){
+  var total=0;
+  for(var n=1;n<=20;n++){
+    var done=!!state.done[n]; if(done)total++;
+    var card=$("#day-"+n); if(card)card.classList.toggle("done",done);
+    var chk=$("#chk-"+n); if(chk)chk.checked=done;
+    var dot=$('[data-dot="'+n+'"]'); if(dot){dot.classList.toggle("done",done);dot.setAttribute("aria-label",n+"-күн, "+(done?"аткарылды":"аткарыла элек"));}
+  }
+  PHASES.forEach(function(p){
+    var c=0;for(var n=p.from;n<=p.to;n++){if(state.done[n])c++;}
+    $$('[data-phase-count="'+p.id+'"]').forEach(function(el){el.textContent=c+"/5";});
+  });
+  $("#ring-text").textContent=total+"/20";
+  $("#ring-bar").setAttribute("stroke-dasharray",(total*5)+" 100");
+  $("#progress-sum").textContent=total+" / 20 күн";
+  $("#done-banner").hidden=total<20;
+  var nx=nextDay(),cont=$("#cta-continue"),start=$("#cta-start");
+  if(nx===null){cont.textContent="Жыйынтыкка өтүү";cont.setAttribute("href","#day-20");start.textContent="20 күн бүттү";start.setAttribute("href","#day-20");}
+  else if(total===0){cont.textContent="1-күндөн баштоо";cont.setAttribute("href","#day-1");start.textContent="1-күндөн баштоо";start.setAttribute("href","#day-1");}
+  else{cont.textContent="Улантуу: "+nx+"-күн";cont.setAttribute("href","#day-"+nx);start.textContent="Улантуу: "+nx+"-күн";start.setAttribute("href","#day-"+nx);}
+}
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t&&t.matches&&t.matches('.task input')){
+    var n=+t.getAttribute("data-day");
+    if(t.checked)state.done[n]=true;else delete state.done[n];
+    save();update();
+  }
+});
+
+/* open the day's details when the day is the target */
+function openFor(id){
+  var el=id&&document.getElementById(id);
+  if(el&&el.classList&&el.classList.contains("day")){var d=$("details.more",el);if(d)d.open=true;}
+}
+window.addEventListener("hashchange",function(){openFor(location.hash.slice(1));});
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="#day-"]');
+  if(a){openFor(a.getAttribute("href").slice(1));}
+});
+var firstOpen=location.hash?location.hash.slice(1):("day-"+(nextDay()||1));
+openFor(firstOpen);
+if(location.hash){
+  var hashTarget=document.getElementById(location.hash.slice(1));
+  if(hashTarget)requestAnimationFrame(function(){hashTarget.scrollIntoView({behavior:"instant"});});
+}
+
+/* toggles */
+function toggler(btn,sel,openLabel,closeLabel){
+  btn.addEventListener("click",function(){
+    var list=$$(sel);var allOpen=list.every(function(d){return d.open;});
+    list.forEach(function(d){d.open=!allOpen;});
+    btn.textContent=allOpen?openLabel:closeLabel;
+  });
+}
+toggler($("#toggle-all"),"details.more","Бардык күндөрдү ачуу","Бардык күндөрдү жабуу");
+toggler($("#toggle-scripts"),"details.script","Бардыгын ачуу","Бардыгын жабуу");
+
+/* reset */
+$("#reset-btn").addEventListener("click",function(){this.hidden=true;$("#reset-confirm").hidden=false;});
+$("#reset-no").addEventListener("click",function(){$("#reset-confirm").hidden=true;$("#reset-btn").hidden=false;});
+$("#reset-yes").addEventListener("click",function(){state={done:{}};save();update();$("#reset-confirm").hidden=true;$("#reset-btn").hidden=false;window.scrollTo(0,0);});
+
+/* nav highlight */
+var links=$$("#nav a"),navEl=$("#nav");
+var ids=links.map(function(a){return a.getAttribute("data-target");});
+var ticking=false,lastCur=null;
+function onScroll(){
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(function(){
+    ticking=false;
+    var cur=ids[0],y=140;
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=y)cur=id;});
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4)cur=ids[ids.length-1];
+    if(cur===lastCur)return;
+    lastCur=cur;
+    links.forEach(function(a){
+      var on=a.getAttribute("data-target")===cur;
+      if(on){
+        a.setAttribute("aria-current","true");
+        navEl.scrollTo({left:a.offsetLeft-(navEl.clientWidth-a.offsetWidth)/2,behavior:"smooth"});
+      }else{a.removeAttribute("aria-current");}
+    });
+  });
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll);
+
+/* print */
+var menu=$("#print-menu");
+$$("[data-print]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var mode=b.getAttribute("data-print");
+    menu.open=false;
+    document.body.classList.toggle("print-checklist",mode==="checklist");
+    setTimeout(function(){try{window.print();}catch(e){}},60);
+  });
+});
+document.addEventListener("click",function(e){if(menu.open&&!menu.contains(e.target))menu.open=false;});
+var saved=[];
+window.addEventListener("beforeprint",function(){
+  var list=$$("details.more,details.script");saved=list.map(function(d){return d.open;});
+  if(!document.body.classList.contains("print-checklist"))list.forEach(function(d){d.open=true;});
+});
+window.addEventListener("afterprint",function(){
+  document.body.classList.remove("print-checklist");
+  $$("details.more,details.script").forEach(function(d,i){d.open=!!saved[i];});
+});
+
+/* SOS */
+var sos=$("#sos"),step=0,breathTimer=null;
+var stepsEls=$$("#sos .step"),stepNav=$$("#sos-steps li");
+function stopBreath(){clearTimeout(breathTimer);var b=$("#breath");b.classList.remove("run");}
+function startBreath(){
+  stopBreath();
+  var b=$("#breath"),lab=$("#breath-label"),inhale=true;
+  void b.offsetWidth;b.classList.add("run");
+  (function tick(){
+    lab.textContent=inhale?"Дем алыңыз":"Акырын чыгарыңыз";
+    breathTimer=setTimeout(function(){inhale=!inhale;tick();},inhale?4000:6000);
+  })();
+}
+function showStep(i){
+  step=Math.max(0,Math.min(2,i));
+  stepsEls.forEach(function(s,k){s.hidden=k!==step;});
+  stepNav.forEach(function(li,k){if(k===step)li.setAttribute("aria-current","step");else li.removeAttribute("aria-current");});
+  $("#sos-prev").hidden=step===0;
+  $("#sos-next").textContent=step===2?"Тынчтандым, жабуу":"Кийинки кадам";
+  if(step===0)startBreath();else stopBreath();
+}
+function openSos(){if(!sos.open){if(sos.showModal)sos.showModal();else sos.setAttribute("open","");}showStep(0);}
+function closeSos(){stopBreath();if(sos.close)sos.close();else sos.removeAttribute("open");}
+$$("[data-open-sos]").forEach(function(b){b.addEventListener("click",openSos);});
+$("#sos-close").addEventListener("click",closeSos);
+$("#sos-prev").addEventListener("click",function(){showStep(step-1);});
+$("#sos-next").addEventListener("click",function(){if(step===2)closeSos();else showStep(step+1);});
+sos.addEventListener("click",function(e){if(e.target===sos)closeSos();});
+sos.addEventListener("close",stopBreath);
+
+update();onScroll();
+})();
+</script>
+</body>
+</html>
