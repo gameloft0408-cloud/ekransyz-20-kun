@@ -19,6 +19,7 @@
   --sos:#C23B2B; --sos-on:#FFFFFF; --sos-soft:#FBE4E0;
   --warn-soft:#FFF1D6;
   --kg-soft:#FBF0DC; --kg-ink:#7A4B0C;
+  --lv-g:#2A7A3B; --lv-g-bg:#E3F3E7; --lv-y:#8F6A10; --lv-y-bg:#FFF1D6; --lv-o:#B04E17; --lv-o-bg:#FBE3D4; --lv-r:#B3261E; --lv-r-bg:#FBE4E0; --lv-s:#6B4D9B; --lv-s-bg:#E8E0F4; --lv-i:#0E6A74; --lv-i-bg:#D8EEF0;
   --p1:#2A6F8E; --p1-soft:#DCEBF3; --p1-on:#FFFFFF;
   --p2:#8F5F10; --p2-soft:#F6E8CC; --p2-on:#FFFFFF;
   --p3:#2F7A3E; --p3-soft:#DDEFDF; --p3-on:#FFFFFF;
@@ -37,6 +38,7 @@
     --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
     --warn-soft:#3A2E14;
     --kg-soft:#3A2D18; --kg-ink:#EBC47C;
+    --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F;
     --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
     --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
     --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
@@ -54,6 +56,7 @@
   --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
   --warn-soft:#3A2E14;
   --kg-soft:#3A2D18; --kg-ink:#EBC47C;
+  --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F;
   --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
   --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
   --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
@@ -318,6 +321,34 @@ dialog.sheet::backdrop{background:rgba(6,18,22,.64)}
 .cy-t em{font-style:normal;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--sos)}
 .cy.key{border:2px solid var(--sos)}
 
+
+/* evidence level badges: shape + label, never colour alone */
+.lv{display:inline-flex;align-items:center;gap:7px;padding:3px 11px 3px 9px;border-radius:99px;font-size:.78rem;font-weight:800;line-height:1.35}
+.lv i{flex:none;width:.72rem;height:.72rem;border-radius:50%;border:2px solid currentColor;box-sizing:border-box}
+.lv-g{color:var(--lv-g);background:var(--lv-g-bg)}
+.lv-g i{background:currentColor}
+.lv-y{color:var(--lv-y);background:var(--lv-y-bg)}
+.lv-y i{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.lv-o{color:var(--lv-o);background:var(--lv-o-bg)}
+.lv-r{color:var(--lv-r);background:var(--lv-r-bg)}
+.lv-r i{border-radius:2px;transform:rotate(45deg)}
+.lv-s{color:var(--lv-s);background:var(--lv-s-bg)}
+.lv-i,.lv-m{color:var(--lv-i);background:var(--lv-i-bg)}
+.lv-s i,.lv-m i{border-radius:3px}
+.lv-i i{background:currentColor;border-radius:3px}
+.lv-x{display:block;margin-top:4px;font-size:.88rem;font-weight:400;color:var(--muted);line-height:1.5}
+.lvline{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:0}
+.lvline .lv-x{display:inline;margin:0}
+p.ev{display:grid;gap:2px;justify-items:start;margin-top:4px}
+.chg{font-size:.76rem;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:99px}
+.legend{display:grid;gap:10px}
+.legend p{display:grid;gap:2px;justify-items:start;color:var(--ink)}
+.evrow{display:grid;gap:6px;padding:14px 16px;background:var(--surface-2);border-radius:14px}
+.evrow>b{font-family:var(--font-display);font-size:1rem;line-height:1.35}
+.evrow p{color:var(--ink);font-size:.95rem}
+.evrow p.ar{font-size:1.35rem;line-height:2.1;text-align:right;font-family:'Noto Naskh Arabic','Amiri','Traditional Arabic','Geeza Pro','Segoe UI',serif;background:var(--surface);border-radius:10px;padding:10px 14px}
+.evrow p.src{font-size:.82rem;color:var(--muted)}
+
 /* print-only areas */
 .print-only{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -329,11 +360,11 @@ dialog.sheet::backdrop{background:rgba(6,18,22,.64)}
   .view{display:none!important}
   .wrap{max-width:none;padding-inline:0}
   .print-only{display:block}
-  .card,.game,.example,.pday,.phase-head{break-inside:avoid;box-shadow:none}
+  .card,.game,.example,.pday,.phase-head,.evrow{break-inside:avoid;box-shadow:none}
   .pday{border:1px solid #999;border-radius:8px;padding:12px;margin-bottom:12px;display:grid;gap:8px}
   .pday .tick{width:22px;height:22px;border:2px solid #000;border-radius:5px;display:inline-grid;place-items:center;margin-right:8px;font-weight:800;flex:none}
   .pday .head{display:flex;align-items:center}
-  body.print-book #view-learn,body.print-book #view-culture,body.print-book #view-cyber,body.print-book #view-words{display:grid!important}
+  body.print-book #view-learn,body.print-book #view-culture,body.print-book #view-cyber,body.print-book #view-evidence,body.print-book #view-words{display:grid!important}
   body.print-book #print-days{display:block}
   body.print-book #print-list{display:none}
   body.print-list #print-days{display:none}
