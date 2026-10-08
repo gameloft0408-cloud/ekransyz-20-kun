@@ -19,7 +19,7 @@
   --sos:#C23B2B; --sos-on:#FFFFFF; --sos-soft:#FBE4E0;
   --warn-soft:#FFF1D6;
   --kg-soft:#FBF0DC; --kg-ink:#7A4B0C;
-  --lv-g:#2A7A3B; --lv-g-bg:#E3F3E7; --lv-y:#8F6A10; --lv-y-bg:#FFF1D6; --lv-o:#B04E17; --lv-o-bg:#FBE3D4; --lv-r:#B3261E; --lv-r-bg:#FBE4E0; --lv-s:#6B4D9B; --lv-s-bg:#E8E0F4; --lv-i:#0E6A74; --lv-i-bg:#D8EEF0;
+  --lv-g:#2A7A3B; --lv-g-bg:#E3F3E7; --lv-y:#8F6A10; --lv-y-bg:#FFF1D6; --lv-o:#B04E17; --lv-o-bg:#FBE3D4; --lv-r:#B3261E; --lv-r-bg:#FBE4E0; --lv-s:#6B4D9B; --lv-s-bg:#E8E0F4; --lv-i:#0E6A74; --lv-i-bg:#D8EEF0; --lv-w:#B3261E; --lv-w-bg:#FBE4E0;
   --p1:#2A6F8E; --p1-soft:#DCEBF3; --p1-on:#FFFFFF;
   --p2:#8F5F10; --p2-soft:#F6E8CC; --p2-on:#FFFFFF;
   --p3:#2F7A3E; --p3-soft:#DDEFDF; --p3-on:#FFFFFF;
@@ -38,7 +38,7 @@
     --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
     --warn-soft:#3A2E14;
     --kg-soft:#3A2D18; --kg-ink:#EBC47C;
-    --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F;
+    --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F; --lv-w:#F08A80; --lv-w-bg:#3A1A16;
     --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
     --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
     --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
@@ -56,7 +56,7 @@
   --sos:#EE7867; --sos-on:#2B0A06; --sos-soft:#3A1A16;
   --warn-soft:#3A2E14;
   --kg-soft:#3A2D18; --kg-ink:#EBC47C;
-  --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F;
+  --lv-g:#7FCB8E; --lv-g-bg:#16301F; --lv-y:#E3B95E; --lv-y-bg:#3A2E14; --lv-o:#F0976A; --lv-o-bg:#3A2418; --lv-r:#F08A80; --lv-r-bg:#3A1A16; --lv-s:#B9A0E4; --lv-s-bg:#2A2142; --lv-i:#5CC4CE; --lv-i-bg:#143A3F; --lv-w:#F08A80; --lv-w-bg:#3A1A16;
   --p1:#7DBBD9; --p1-soft:#17323F; --p1-on:#0C1A1E;
   --p2:#E0B25B; --p2-soft:#3A2E14; --p2-on:#0C1A1E;
   --p3:#86CC92; --p3-soft:#17331D; --p3-on:#0C1A1E;
@@ -374,3 +374,9 @@ p.ev{display:grid;gap:2px;justify-items:start;margin-top:4px}
 }
 .pday{display:none}
 .print-only .pday{display:grid}
+
+.lv-w{color:var(--lv-w);background:var(--lv-w-bg)}
+.lv-w i{border-radius:2px;background:currentColor;transform:rotate(45deg)}
+.legal{display:grid;gap:8px;margin-top:26px;padding:18px 0 4px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted);line-height:1.55}
+.legal p{margin:0}
+.legal b{color:var(--ink)}
