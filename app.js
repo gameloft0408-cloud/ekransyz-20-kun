@@ -232,7 +232,7 @@ var SAYX={
 DAYS.forEach(function(d){if(KG[d.n])d.kg=KG[d.n];if(!d.say&&SAYX[d.n])d.say=SAYX[d.n];});
 var DIMG={1:"d1",4:"d4",10:"d10",17:"d17"};
 DAYS.forEach(function(d){if(DIMG[d.n])d.img="img/"+DIMG[d.n]+".svg";});
-var CARDLINK={1:["time","Басып чыгаруучу карта: телефон убактысын жазуу"],3:["rules","Басып чыгаруучу карта: биздин үйдүн эрежелери"],10:["jar","Басып чыгаруучу карта: тажоо банкасынын кагаздары"],15:["treasure","Басып чыгаруучу карта: табият кенчинин тизмеси"],16:["week","Басып чыгаруучу карта: жумалык график"],17:["done","Басып чыгаруучу карта: «Мен жасадым»"],18:["if","Басып чыгаруучу карта: «Эгер ушундай болсо, анда мындай кылам»"]};
+var CARDLINK={1:["time","Картаны ачуу: телефон убактысын жазуу"],3:["rules","Картаны ачуу: биздин үйдүн эрежелери"],10:["jar","Картаны ачуу: тажоо банкасынын кагаздары"],15:["treasure","Картаны ачуу: табият кенчинин тизмеси"],16:["week","Картаны ачуу: жумалык график"],17:["done","Картаны ачуу: «Мен жасадым»"],18:["if","Картаны ачуу: «Эгер ушундай болсо, анда мындай кылам»"]};
 /* Кийинки күн ачылганга чейин даярдана турган нерселер (күндүн мазмуну ачылбайт) */
 var PREP={
  1:["Телефондун «Экран убактысы» бөлүмүн ачып көрүңүз.","Кагаз же дептер жана калем."],
@@ -787,7 +787,7 @@ function renderToday(){
   h+='<div class="linkcards"><a class="linkcard" href="#culture"><b>Кыргыз салты жана ишеним</b><span>Бата, дасторкон, азан, жети ата, салттуу оюндар</span></a>'+
      '<a class="linkcard" href="#cyber"><b>Кибер коопсуздук</b><span>Балаңыз интернетте корголгонбу? '+cyberCount()+' / '+CYBER_N+' кадам аткарылды</span></a>'+
      '<a class="linkcard" href="#evidence"><b>Далилдер жана булактар</b><span>Китептеги билдирүүлөр кандай текшерилди, хадис жана аяттар</span></a>'+
-     '<a class="linkcard" href="#cards"><b>Басып чыгаруучу карталар</b><span>Үй эрежелери, «Мен жасадым» картасы, тажоо банкасы, жумалык график</span></a></div>';
+     '<a class="linkcard" href="#cards"><b>Карталар: ушул жерден толтурасыз</b><span>Үй эрежелери, «Мен жасадым» картасы, тажоо банкасы, жумалык график</span></a></div>';
   h+='<p class="notice"><b>Билип коюңуз</b>20 күн — жаңы тартипти баштоо үчүн, акыркы чек эмес. Бир изилдөөдө адат автоматташуусу адамдар арасында 18 күндөн 254 күнгө чейин өзгөргөн. Бала такыр уктабай калса, телефонду алганда өтө катуу ачууланса, мектептен же достордон качса, балдар психологуна же дарыгерге кайрылыңыз. Бул китеп — билим берүү үчүн, ал медициналык же психотерапиялык дарылоону алмаштырбайт. Белгилерин «Окуу» бөлүмүндөгү «Качан адиске кайрылуу керек?» бөлүмүнөн караңыз.</p>';
   $("#view-today").innerHTML=h;
 }
@@ -889,7 +889,7 @@ function renderLearn(){
    '<div class="linkcards"><a class="linkcard" href="#culture"><b>Кыргыз салты жана ишеним</b><span>Бата, дасторкон, азан, жети ата, салттуу оюндар</span></a>'+
    '<a class="linkcard" href="#cyber"><b>Кибер коопсуздук</b><span>Балаңыз интернетте корголгонбу? '+cyberCount()+' / '+CYBER_N+' кадам аткарылды</span></a>'+
    '<a class="linkcard" href="#evidence"><b>Далилдер жана булактар</b><span>Китептеги билдирүүлөр кандай текшерилди, хадис жана аяттар</span></a>'+
-   '<a class="linkcard" href="#cards"><b>Басып чыгаруучу карталар</b><span>Үй эрежелери, «Мен жасадым» картасы, тажоо банкасы, жумалык график</span></a></div><div class="acc">';
+   '<a class="linkcard" href="#cards"><b>Карталар: ушул жерден толтурасыз</b><span>Үй эрежелери, «Мен жасадым» картасы, тажоо банкасы, жумалык график</span></a></div><div class="acc">';
 
   h+=acc("Китеп кайсы жашка ылайыктуу?",lv("y","Практикалык багыт. Ар бир бала башкача."),
    '<div class="age">'+
@@ -972,7 +972,7 @@ function renderLearn(){
   $("#view-learn").innerHTML=h;
   $("#reset-btn").addEventListener("click",function(){this.hidden=true;$("#reset-confirm").hidden=false;});
   $("#reset-no").addEventListener("click",function(){$("#reset-confirm").hidden=true;$("#reset-btn").hidden=false;});
-  $("#reset-yes").addEventListener("click",function(){state={done:{}};cyberState=cyberState.map(function(){return false;});metrics={start:{},end:{}};save();saveCyber();saveMetrics();renderAll();location.hash="#today";route();});
+  $("#reset-yes").addEventListener("click",function(){state={done:{}};cyberState=cyberState.map(function(){return false;});metrics={start:{},end:{}};cardData={};save();saveCyber();saveMetrics();saveCards();renderCards();renderAll();location.hash="#today";route();});
 }
 
 /* ====================== RENDER: EVIDENCE ====================== */
@@ -1121,44 +1121,95 @@ document.addEventListener("input",function(e){
   var cp=$("#m-compare");if(cp){cp.innerHTML=compareHTML();paintBars();}
 });
 
-/* ====================== БАСЫП ЧЫГАРУУЧУ КАРТАЛАР ====================== */
-function ln(){return '<span class="ln"></span>';}
-function bx(t){return '<li><span class="bx"></span>'+t+'</li>';}
+/* ====================== КАРТАЛАР: ушул жерден толтурууга болот ====================== */
+var CKEY2="ekran20-cards-v1",cardData={};
+/* ишенимсиз маалымат: ачкычтар жана узундук текшерилет */
+try{
+  var kraw=localStorage.getItem(CKEY2);
+  if(kraw){var ko=JSON.parse(kraw);if(ko&&typeof ko==="object"){Object.keys(ko).forEach(function(k){
+    if(!/^[a-z]+\.[a-z0-9]+$/.test(k))return;
+    var v=ko[k];
+    if(v===true)cardData[k]=true;
+    else if(typeof v==="string"&&v.trim())cardData[k]=v.slice(0,300);
+  });}}
+}catch(e){}
+function saveCards(){try{localStorage.setItem(CKEY2,JSON.stringify(cardData));}catch(e){}}
+function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function fT(k,cls,label){return '<input class="'+cls+'" type="text" maxlength="120" data-f="'+k+'" value="'+esc(cardData[k]||"")+'" aria-label="'+esc(label)+'">';}
+function fC(k,label,text){return '<label class="ck"><input type="checkbox" data-f="'+k+'" aria-label="'+esc(label)+'"'+(cardData[k]===true?' checked':"")+'><span class="bx" aria-hidden="true"></span>'+(text?'<span class="ck-t">'+text+'</span>':"")+'</label>';}
+function cnt(prefix){var n=0;Object.keys(cardData).forEach(function(k){if(k.indexOf(prefix)===0&&cardData[k]===true)n++;});return n;}
+function treasureText(){var n=cnt("treasure.c");return "Табылды: "+n+" / 10"+(n>=10?". Кенч ачылды!":"");}
+var JAR_IDEAS=["Сүрөт тартуу","Жаздыктан үй куруу","Чогуу нан жасоо","Топ ойноо","Хоккей ойноо","Чоң эненин жомогун угуу","Табышмак айтышуу","Жети атаны жазуу","Асык ойноо","Картон робот жасоо"];
 function renderCards(){
-  var WK=["Дш","Шш","Шр","Бш","Жм","Иш","Жк"];
-  var cards=[];
+  var WK=["Дш","Шш","Шр","Бш","Жм","Иш","Жк"],WKF=["Дүйшөмбү","Шейшемби","Шаршемби","Бейшемби","Жума","Ишемби","Жекшемби"];
+  var cards=[],i,j;
+  var tr=["Эртең менен","Мектептен кийин","Кечки тамактын алдында","Уктоодон мурун","Жыйынтыгы"].map(function(x,r){
+    return '<tr><td><b>'+x+'</b></td><td>'+fT("time.r"+r+"a","cellin",x+": эмне көрдү же ойноду")+'</td><td>'+fT("time.r"+r+"b","cellin",x+": канча убакыт")+'</td></tr>';}).join("");
   cards.push({id:"time",day:1,t:"Телефон убактысын жазуу",
-   b:'<table class="ptable"><thead><tr><th>Качан</th><th>Эмне көрдү же ойноду</th><th>Канча убакыт</th></tr></thead><tbody>'+
-     ["Эртең менен","Мектептен кийин","Кечки тамактын алдында","Уктоодон мурун","Жыйынтыгы"].map(function(x){return '<tr><td><b>'+x+'</b></td><td></td><td></td></tr>';}).join('')+'</tbody></table>'+
-     '<p class="pq"><b>Бала телефонду качан сурайт?</b></p><ul class="pchk">'+bx('Тажаганда')+bx('Тамак ичкенде')+bx('Мен иш кылып жатканда')+'<li><span class="bx"></span>Башка: '+ln()+'</li></ul>'});
+   b:'<table class="ptable"><thead><tr><th>Качан</th><th>Эмне көрдү же ойноду</th><th>Канча убакыт</th></tr></thead><tbody>'+tr+'</tbody></table>'+
+     '<p class="pq"><b>Бала телефонду качан сурайт?</b></p><ul class="pchk"><li>'+fC("time.q1","Тажаганда","Тажаганда")+'</li><li>'+fC("time.q2","Тамак ичкенде","Тамак ичкенде")+'</li><li>'+fC("time.q3","Мен иш кылып жатканда","Мен иш кылып жатканда")+'</li><li>'+fC("time.q4","Башка учур","Башка:")+fT("time.other","ln-in","Башка учур")+'</li></ul>'});
   cards.push({id:"rules",day:3,t:"Биздин үйдүн эрежелери",
-   b:'<ol class="prules"><li>Тамакта телефон жок.</li><li>Уктоодон бир саат мурун телефон жок.</li><li>Таймер шыңгыраса, телефон жатат.</li><li>Тааныш эмес адам менен жазышпайбыз жана жеке маалымат бербейбиз.</li><li>'+ln()+'<small>баланын сунушу</small></li></ol>'+
-     '<div class="psign"><span>Ата '+ln()+'</span><span>Эне '+ln()+'</span><span>Бала '+ln()+'</span><span>'+ln()+'</span></div>'});
-  var slips=["Сүрөт тартуу","Жаздыктан үй куруу","Чогуу нан жасоо","Топ ойноо","Хоккей ойноо","Чоң эненин жомогун угуу","Табышмак айтышуу","Жети атаны жазуу","Асык ойноо","Картон робот жасоо","",""];
-  cards.push({id:"jar",day:10,t:"Тажоо банкасы: кесип салыңыз",
-   b:'<p class="muted">Кагаздарды кесип, банкага салыңыз. Бош кагаздарга баланын өзү ойлогон иштерин жазыңыз. Бала «тажадым» десе: «Банкадан бир кагаз тарт».</p><div class="pslips">'+slips.map(function(x){return '<div class="slip">'+(x||'')+'</div>';}).join('')+'</div>'});
+   b:'<ol class="prules"><li>Тамакта телефон жок.</li><li>Уктоодон бир саат мурун телефон жок.</li><li>Таймер шыңгыраса, телефон жатат.</li><li>Тааныш эмес адам менен жазышпайбыз жана жеке маалымат бербейбиз.</li><li>'+fT("rules.r5","ln-in","Баланын сунуштаган эрежеси")+'<small>баланын сунушу</small></li></ol>'+
+     '<div class="psign"><span>Ата '+fT("rules.s1","ln-in","Ата")+'</span><span>Эне '+fT("rules.s2","ln-in","Эне")+'</span><span>Бала '+fT("rules.s3","ln-in","Бала")+'</span><span>'+fT("rules.s4","ln-in","Башка кол тамга")+'</span></div>'});
+  var slips=JAR_IDEAS.map(function(x){return '<div class="slip">'+x+'</div>';}).join("")+[1,2,3,4].map(function(n){return '<div class="slip">'+fT("jar.s"+n,"slip-in","Өзүңүздүн идеяңыз")+'</div>';}).join("");
+  cards.push({id:"jar",day:10,t:"Тажоо банкасы",
+   b:'<p class="muted">Бош кагаздарга баланын өзү ойлогон иштерди жазыңыз. Бала «тажадым» десе, төмөнкү баскычты басыңыз же: «Банкадан бир кагаз тарт» деңиз.</p>'+
+     '<div class="noprint jar-draw"><button class="btn primary" type="button" data-jar-pick>Банкадан кагаз тартуу</button><p class="jar-pick" id="jar-pick" aria-live="polite"></p></div>'+
+     '<div class="pslips">'+slips+'</div>'});
+  var tl=["Жалбырак (биринчи түрү)","Жалбырак (экинчи түрү)","Жалбырак (үчүнчү түрү)","Жылма таш","Жыты бар нерсе","Сары нерсе","Канат"].map(function(x,n){return '<li>'+fC("treasure.c"+(n+1),x,x)+'</li>';}).join("")+
+     [8,9,10].map(function(n){return '<li>'+fC("treasure.c"+n,"Сиз тандаган нерсе "+(n-7))+fT("treasure.t"+n,"ln-in","Сиз тандаган нерсе "+(n-7))+'</li>';}).join("");
   cards.push({id:"treasure",day:15,t:"Табият кенчи: тизме",
-   b:'<p class="muted">Баары бирге тапканда: «Кенч ачылды!»</p><ul class="pchk big">'+bx('Жалбырак (биринчи түрү)')+bx('Жалбырак (экинчи түрү)')+bx('Жалбырак (үчүнчү түрү)')+bx('Жылма таш')+bx('Жыты бар нерсе')+bx('Сары нерсе')+bx('Канат')+'<li><span class="bx"></span>'+ln()+'</li><li><span class="bx"></span>'+ln()+'</li><li><span class="bx"></span>'+ln()+'</li></ul>'});
-  var sched='<table class="ptable"><thead><tr><th>Убакыт</th><th>Иш күндөрү</th><th>Дем алыш күндөрү</th></tr></thead><tbody>'+SCHED.map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';}).join('')+'</tbody></table>';
-  var grid='<table class="ptable grid"><thead><tr><th></th>'+WK.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr></thead><tbody>'+
-     ["Телефон убактысы","Телефонсуз убакыт","Кыймыл","Чогуу иш"].map(function(x){return '<tr><td><b>'+x+'</b></td>'+WK.map(function(){return '<td></td>';}).join('')+'</tr>';}).join('')+'</tbody></table>';
+   b:'<p class="muted">Баары бирге тапканда: «Кенч ачылды!»</p><ul class="pchk big">'+tl+'</ul><p class="pq"><b id="treasure-count">'+treasureText()+'</b></p>'});
+  var sched='<table class="ptable"><thead><tr><th>Убакыт</th><th>Иш күндөрү</th><th>Дем алыш күндөрү</th></tr></thead><tbody>'+SCHED.map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';}).join("")+'</tbody></table>';
+  var rowsW=["Телефон убактысы","Телефонсуз убакыт","Кыймыл","Чогуу иш"];
+  var grid='<div class="wk">'+WKF.map(function(dn,c){return '<div class="wkday"><b>'+dn+'</b>'+rowsW.map(function(x,r){return '<label class="wkrow"><span>'+x+'</span>'+fT("week.r"+r+"c"+c,"cellin",x+", "+dn)+'</label>';}).join("")+'</div>';}).join("")+'</div>';
   cards.push({id:"week",day:16,t:"Үй-бүлөлүк жумалык график",
-   b:'<p class="pq"><b>Үлгү</b></p>'+sched+'<p class="pq"><b>Биздин жума</b></p>'+grid+'<div class="psign"><span>Ата '+ln()+'</span><span>Эне '+ln()+'</span><span>Бала '+ln()+'</span></div>'});
+   b:'<p class="pq"><b>Үлгү (китептен)</b></p>'+sched+'<p class="pq"><b>Биздин жума</b></p>'+grid+'<div class="psign"><span>Ата '+fT("week.s1","ln-in","Ата")+'</span><span>Эне '+fT("week.s2","ln-in","Эне")+'</span><span>Бала '+fT("week.s3","ln-in","Бала")+'</span></div>'});
   var beh=["Таймер шыңгырганда өзү өчүрдү","Тамакта телефонсуз отурду","Уктоодон мурун телефонду үйүнө койду"];
   cards.push({id:"done",day:17,t:"«Мен жасадым» картасы",
-   b:'<table class="ptable grid"><thead><tr><th></th>'+WK.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr></thead><tbody>'+
-     beh.map(function(x){return '<tr><td><b>'+x+'</b></td>'+WK.map(function(){return '<td class="chk"></td>';}).join('')+'</tr>';}).join('')+'</tbody></table>'+
-     '<p class="pq"><b>Жуманын сыйлыгы (бала тандайт):</b></p><ul class="pchk">'+bx('Паркка баруу')+bx('Жөө басуу')+bx('Үй-бүлөлүк кечки тамак')+bx('Чогуу оюн кечеси')+'</ul><p class="pq">Бул жумада жыйырма бир белгиден: '+ln()+'</p>'});
+   b:'<div class="drows">'+beh.map(function(x,r){return '<div class="drow"><b>'+x+'</b><div class="d7">'+WK.map(function(d,c){return '<span class="dcell"><small>'+d+'</small>'+fC("done.c"+r+c,x+", "+WKF[c])+'</span>';}).join("")+'</div></div>';}).join("")+'</div>'+
+     '<p class="pq"><b>Бул жумада жыйырма бир белгиден: <span id="done-count">'+cnt("done.c")+'</span></b></p>'+
+     '<p class="pq"><b>Жуманын сыйлыгы (бала тандайт):</b></p><ul class="pchk"><li>'+fC("done.w1","Паркка баруу","Паркка баруу")+'</li><li>'+fC("done.w2","Жөө басуу","Жөө басуу")+'</li><li>'+fC("done.w3","Үй-бүлөлүк кечки тамак","Үй-бүлөлүк кечки тамак")+'</li><li>'+fC("done.w4","Чогуу оюн кечеси","Чогуу оюн кечеси")+'</li></ul>'});
   var ifs=[["Эгер жолдо бала телефон сураса, анда","Сунуш: терезеден оюндар, жаныбарлардын аттары, алдын ала жүктөлгөн аудио жомок."],["Эгер чоң эненикине барсак, анда","Сунуш: алдын ала чоң энеге эреже жөнүндө айтып коюңуз."],["Эгер бала ооруп калса, анда","Сунуш: эрежени убактылуу жумшартып, кайра кайтуучу күндү белгилеңиз."],["Эгер каникул болсо, анда","Сунуш: күнүнө бир «чоң иш» пландаңыз: секция, жөө басуу, тамак жасоо."]];
   cards.push({id:"if",day:18,t:"«Эгер ушундай болсо, анда мындай кылам»",
-   b:'<ol class="pif">'+ifs.map(function(x){return '<li><b>'+x[0]+'</b>'+ln()+ln()+'<small>'+x[1]+'</small></li>';}).join('')+'</ol>'});
-  var h='<div class="page-title"><h1>Басып чыгаруучу карталар</h1><p>Картаны басып чыгарып, кол менен толтуруңуз жана муздаткычка илип койсоңуз болот. Ар бир картанын астындагы баскыч ошол картаны гана басып чыгарат.</p></div>';
+   b:'<ol class="pif">'+ifs.map(function(x,n){return '<li><b>'+x[0]+'</b><textarea class="ta" rows="2" maxlength="300" data-f="if.a'+n+'" aria-label="'+esc(x[0])+'">'+esc(cardData["if.a"+n]||"")+'</textarea><small>'+x[1]+'</small></li>';}).join("")+'</ol>'});
+  var h='<div class="page-title"><h1>Карталар</h1><p>Басып чыгаруунун кереги жок: түз ушул жерге жазып, белги коюңуз. Жазганыңыз ушул телефондо сакталат, эч жакка жөнөтүлбөйт. Кааласаңыз, картаны басып чыгарып, муздаткычка илип койсоңуз да болот.</p></div>';
   cards.forEach(function(c){
     h+='<article class="card pcard" id="card-'+c.id+'" data-card="'+c.id+'"><div class="pc-head"><h3>'+c.t+'</h3><span class="chip">'+c.day+'-күн</span></div>'+c.b+
-       '<div class="pc-foot noprint"><button class="btn quiet small" type="button" data-print-card="'+c.id+'">Бул картаны басып чыгаруу</button> <a class="btn quiet small" href="#day-'+c.day+'">'+c.day+'-күнгө өтүү</a></div></article>';
+       '<div class="pc-foot noprint"><button class="btn quiet small" type="button" data-print-card="'+c.id+'">Басып чыгаруу (кааласаңыз)</button><button class="btn quiet small" type="button" data-clear-card="'+c.id+'">Картаны тазалоо</button><a class="btn quiet small" href="#day-'+c.day+'">'+c.day+'-күнгө өтүү</a></div></article>';
   });
   $("#view-cards").innerHTML=h;
 }
+function cardsChanged(t){
+  var k=t.getAttribute("data-f");if(!k||!/^[a-z]+\.[a-z0-9]+$/.test(k))return;
+  if(t.type==="checkbox"){if(t.checked)cardData[k]=true;else delete cardData[k];}
+  else{var v=String(t.value).slice(0,300);if(v.trim())cardData[k]=v;else delete cardData[k];}
+  saveCards();
+  var a=$("#done-count");if(a)a.textContent=cnt("done.c");
+  var tc=$("#treasure-count");if(tc)tc.textContent=treasureText();
+}
+document.addEventListener("input",function(e){var t=e.target;if(t&&t.matches&&t.matches("[data-f]"))cardsChanged(t);});
+document.addEventListener("change",function(e){var t=e.target;if(t&&t.matches&&t.matches("input[type=checkbox][data-f]"))cardsChanged(t);});
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("[data-clear-card]");
+  if(b){
+    if(b.getAttribute("data-armed")!=="1"){
+      b.setAttribute("data-armed","1");b.textContent="Ишенесизби? Дагы бир жолу басыңыз";
+      setTimeout(function(){if(b.isConnected){b.removeAttribute("data-armed");b.textContent="Картаны тазалоо";}},4000);return;
+    }
+    var id=b.getAttribute("data-clear-card");
+    Object.keys(cardData).forEach(function(k){if(k.indexOf(id+".")===0)delete cardData[k];});
+    saveCards();renderCards();return;
+  }
+  var p=e.target.closest&&e.target.closest("[data-jar-pick]");
+  if(p){
+    var list=JAR_IDEAS.slice();
+    for(var n=1;n<=4;n++){var c=cardData["jar.s"+n];if(c&&c.trim())list.push(c.trim());}
+    var out=$("#jar-pick"),prev=out.getAttribute("data-last")||"",pick=list[Math.floor(Math.random()*list.length)];
+    if(list.length>1){var guard=0;while(pick===prev&&guard<20){pick=list[Math.floor(Math.random()*list.length)];guard++;}}
+    out.setAttribute("data-last",pick);out.textContent=pick;
+  }
+});
 
 /* ====================== PRINT AREAS ====================== */
 function renderPrint(){
@@ -1197,7 +1248,7 @@ function route(){
 var lastHash=null;
 window.addEventListener("hashchange",function(){tick();route();if(location.hash!==lastHash)window.scrollTo(0,0);lastHash=location.hash;});
 
-function renderAll(){renderToday();renderDays();renderLearn();renderCulture();renderCyber();renderEvidence();renderWords();renderCards();renderPrint();}
+function renderAll(){renderToday();renderDays();renderLearn();renderCulture();renderCyber();renderEvidence();renderWords();renderPrint();}
 
 /* кибер тизме: белгилерди сактоо */
 document.addEventListener("change",function(e){
@@ -1345,5 +1396,5 @@ sos.addEventListener("click",function(e){if(e.target===sos)closeSos();});
 sos.addEventListener("close",stopBreath);
 
 /* ====================== START ====================== */
-renderAll();route();lastHash=location.hash;
+renderCards();renderAll();route();lastHash=location.hash;
 })();
