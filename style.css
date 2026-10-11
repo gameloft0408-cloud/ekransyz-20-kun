@@ -380,3 +380,98 @@ p.ev{display:grid;gap:2px;justify-items:start;margin-top:4px}
 .legal{display:grid;gap:8px;margin-top:26px;padding:18px 0 4px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted);line-height:1.55}
 .legal p{margin:0}
 .legal b{color:var(--ink)}
+
+/* illustrations (original SVG drawings, self-hosted) */
+.ill{display:block;width:100%;height:auto;border-radius:16px;background:var(--surface-2)}
+.phase-head .ill{margin-bottom:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ill{filter:brightness(.88) saturate(.95)}}
+:root[data-theme="dark"] .ill{filter:brightness(.88) saturate(.95)}
+
+/* collapsible "why it works" */
+details.more{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:0 18px}
+details.more>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;min-height:58px;padding:10px 0;font-family:var(--font-display);font-weight:800;font-size:1.05rem}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"+";margin-left:auto;font-family:var(--font-body);font-size:1.6rem;color:var(--accent);line-height:1}
+details.more[open]>summary::after{content:"\2212"}
+.more-body{display:grid;gap:10px;padding-bottom:16px}
+.more-body p{color:var(--ink)}
+
+/* what to prepare for tomorrow */
+.prep-list{margin:6px 0 0;padding-left:1.1rem;display:grid;gap:6px;color:var(--hero-ink);font-size:.97rem}
+
+/* timer */
+#timer-btn{display:inline-flex;align-items:center;gap:4px}
+.tmini{font-variant-numeric:tabular-nums;font-size:.86rem;font-weight:800}
+#timer-btn.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+#timer-btn.on .ic{display:none}
+.brand{white-space:nowrap}
+@media(max-width:360px){.top-row{gap:5px}.iconbtn{min-width:40px;height:42px;padding:0 6px}.brand{font-size:.95rem}}
+.tm-face{font-family:var(--font-display);font-weight:800;font-size:clamp(3.4rem,18vw,5rem);text-align:center;line-height:1.05;font-variant-numeric:tabular-nums}
+.tm-msg{text-align:center;font-weight:800;color:var(--accent);min-height:1.5em}
+.tm-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tm-presets .btn{flex:1 1 5.5rem;min-height:48px}
+.tm-presets .btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-on)}
+.tm-presets .btn:disabled{opacity:.55}
+.tm-custom{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap}
+.tm-custom label{font-weight:700}
+
+/* forms: 1-күн and 20-күн numbers */
+.mform{gap:12px}
+.mrow{display:grid;gap:6px}
+.mrow label{font-weight:800;color:var(--ink)}
+.mpair{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mpair input,.mpair select,.tm-custom input{min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;padding:6px 12px;width:5.5rem}
+.mpair select{width:auto;min-width:12rem}
+.mpair span{color:var(--muted);font-weight:700}
+.saved{color:var(--ok);font-weight:800;min-height:1.4em;font-size:.9rem}
+.cmp{display:grid;gap:6px;padding:10px 0;border-top:1px solid var(--line)}
+.cmp>b{font-family:var(--font-display)}
+.cbar{display:grid;grid-template-columns:3.8rem 1fr;gap:10px;align-items:center;font-size:.85rem;font-weight:800;color:var(--muted)}
+.cbar .trk{background:var(--surface-2);border-radius:10px;height:32px;overflow:hidden}
+.cbar .fill{height:100%;background:var(--accent);color:var(--accent-on);display:flex;align-items:center;padding-inline:10px;white-space:nowrap;min-width:max-content;font-variant-numeric:tabular-nums}
+.cbar .fill.old{background:var(--muted);color:var(--surface)}
+
+/* printable cards */
+.pcard{gap:14px}
+.pc-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pc-head .chip{background:var(--accent-soft);color:var(--accent);padding:3px 10px;border-radius:99px}
+.pc-foot{display:flex;flex-wrap:wrap;gap:8px}
+.ptable{width:100%;border-collapse:collapse;font-size:.9rem;display:block;overflow-x:auto}
+.ptable th,.ptable td{border:1.5px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.ptable thead th{background:var(--surface-2);font-size:.78rem}
+.ptable td{height:2.6rem;min-width:2.2rem}
+.ptable.grid td,.ptable.grid th{text-align:center}
+.ptable.grid td:first-child,.ptable.grid th:first-child{text-align:left;min-width:7rem}
+.ln{display:inline-block;width:min(14rem,100%);border-bottom:1.5px solid var(--ink);height:1.5em;vertical-align:bottom}
+.prules{margin:0;padding-left:1.4rem;display:grid;gap:12px;font-weight:700;font-size:1.05rem}
+.prules small,.pif small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.prules .ln{display:block;width:100%}
+.psign{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:14px;margin-top:6px}
+.psign span{display:flex;align-items:flex-end;gap:6px;font-weight:700}
+.psign .ln{flex:1;width:auto}
+.pchk{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pchk li{display:flex;align-items:flex-end;gap:10px}
+.pchk .bx{flex:none;width:1.3rem;height:1.3rem;border:2px solid var(--ink);border-radius:5px}
+.pchk.big li{font-size:1.1rem}
+.pchk .ln{flex:1;width:auto}
+.pcard p.pq{color:var(--ink);margin-top:6px}
+.pslips{display:grid;grid-template-columns:repeat(2,1fr)}
+@media(min-width:520px){.pslips{grid-template-columns:repeat(3,1fr)}}
+.slip{border:1.5px dashed var(--muted);padding:14px 10px;min-height:4.2rem;display:grid;place-items:center;text-align:center;font-weight:800;font-size:.95rem;color:var(--ink)}
+.pif{margin:0;padding:0;list-style:none;display:grid;gap:18px}
+.pif li{display:grid;gap:4px}
+.pif .ln{display:block;width:100%}
+.pcard .pq b,.pif b{color:var(--ink)}
+@media print{
+  .ill{display:none!important}
+  body.print-card .view{display:none!important}
+  body.print-card #view-cards{display:block!important}
+  body.print-card #view-cards .page-title,body.print-card .legal,body.print-card .print-only{display:none!important}
+  body.print-card .pcard:not(.printing){display:none!important}
+  body.print-card .pcard.printing{border:0;box-shadow:none;padding:0;display:grid;gap:16px;font-size:12pt}
+  .pcard .ptable{display:table;overflow:visible}
+  .ptable th,.ptable td,.slip{border-color:#000}
+  .ln,.pchk .bx{border-color:#000}
+  .ptable th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.more{border:1px solid #999}
+}

@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#F3F7F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D1A1E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230E6A74'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=20261008c">
+<link rel="stylesheet" href="style.css?v=20261011a">
 </head>
 <body id="top">
 <noscript><div class="wrap"><p class="notice">Бул китеп JavaScript менен иштейт. Браузериңиздин жөндөөлөрүнөн JavaScript'ти иштетиңиз.</p></div></noscript>
@@ -21,6 +21,7 @@
 <header class="top">
   <div class="wrap top-row">
     <a class="brand" href="#today">Экрансыз 20 күн</a>
+    <button class="iconbtn" type="button" id="timer-btn" aria-label="Таймер" title="Таймер"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4"/></svg><span class="tmini" id="timer-mini" hidden></span></button>
     <button class="iconbtn" type="button" id="size-btn" aria-label="Тамганы чоңойтуу же кичирейтүү" title="Тамганын өлчөмү">Аа</button>
     <details class="menu" id="print-menu">
       <summary class="iconbtn" aria-label="Басып чыгаруу"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></svg></summary>
@@ -41,6 +42,7 @@
   <section class="view" id="view-cyber" aria-label="Кибер коопсуздук" hidden></section>
   <section class="view" id="view-evidence" aria-label="Далилдер жана булактар" hidden></section>
   <section class="view" id="view-words" aria-label="Даяр сөздөр" hidden></section>
+  <section class="view" id="view-cards" aria-label="Басып чыгаруучу карталар" hidden></section>
   <div class="print-only" id="print-list"></div>
   <div class="print-only" id="print-days"></div>
   <footer class="legal" id="legal">
@@ -104,6 +106,28 @@
   </div>
 </dialog>
 
-<script src="app.js?v=20261008c"></script>
+<dialog class="sheet" id="timer" aria-labelledby="timer-title">
+  <div class="sheet-in">
+    <div class="sheet-top">
+      <strong id="timer-title">Таймер</strong>
+      <button class="iconbtn" type="button" id="timer-close" aria-label="Жабуу"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+    <p class="aside">Таймер шыңгыраса, телефон жатат. Токтотууну таймер кылат, сиз эмес.</p>
+    <div class="tm-face" id="tm-face" role="timer">10:00</div>
+    <p class="tm-msg" id="tm-msg" aria-live="polite"></p>
+    <div class="tm-presets" id="tm-presets">
+      <button type="button" class="btn quiet small" data-min="5" aria-pressed="false">5 мүнөт</button>
+      <button type="button" class="btn quiet small" data-min="10" aria-pressed="true">10 мүнөт</button>
+      <button type="button" class="btn quiet small" data-min="15" aria-pressed="false">15 мүнөт</button>
+      <button type="button" class="btn quiet small" data-min="20" aria-pressed="false">20 мүнөт</button>
+      <button type="button" class="btn quiet small" data-min="30" aria-pressed="false">30 мүнөт</button>
+    </div>
+    <div class="tm-custom"><label for="tm-min">Башка убакыт (мүнөт)</label><input id="tm-min" type="number" inputmode="numeric" min="1" max="180" step="1" value="10"></div>
+    <button class="btn primary block" type="button" id="tm-start">Баштоо</button>
+    <p class="aside">Бул таймер бет ачык жана экран күйүк болгондо иштейт. Бет жабылса же телефон уйкуга кетсе, ал шыңгырабай калышы мүмкүн. Ишенимдүү болушу үчүн ашкананын сааты же кум саат да колдонсоңуз болот.</p>
+  </div>
+</dialog>
+
+<script src="app.js?v=20261011a"></script>
 </body>
 </html>
